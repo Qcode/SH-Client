@@ -2,6 +2,7 @@
   "name": "sh-client",
   "version": "0.1.0",
   "private": true,
+  "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-jest": "^21.15.1",
