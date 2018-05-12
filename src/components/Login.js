@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { connectToServer } from './api';
+import PropTypes from 'prop-types';
 
-class GameContainer extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
@@ -15,14 +15,14 @@ class GameContainer extends Component {
   }
 
   handleSubmit(event) {
-    connectToServer(this.state.username);
+    this.props.connectToServer(this.state.username);
     event.preventDefault();
   }
 
   render() {
     return (
       <div className="game-container">
-        <h1>Lobby</h1>
+        <h1>Join Game</h1>
         <p>Please enter a username</p>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleUsernameChange} id="username" type="text" />
@@ -34,4 +34,8 @@ class GameContainer extends Component {
   }
 }
 
-export default GameContainer;
+Login.propTypes = {
+  connectToServer: PropTypes.func.isRequired,
+};
+
+export default Login;
