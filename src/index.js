@@ -1,11 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import io from 'socket.io-client';
-import './index.css';
-import App from './App';
+import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers/index';
+import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-const socket = io('http://localhost:8080');
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-ReactDOM.render(<App />, document.getElementById('root'));
+window.store = store;
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);
 registerServiceWorker();
