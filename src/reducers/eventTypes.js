@@ -1,2 +1,2 @@
 export const CHANGE_GAME_STATE = 'CHANGE_GAME_STATE';
-export const ANOTHER_EVENT = 'ANOTHER_EVENT';
+export const SYNC_USERS = 'SYNC_USERS';
