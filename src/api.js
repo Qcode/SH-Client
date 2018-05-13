@@ -1,7 +1,5 @@
-import io from 'socket.io-client';
 import { CHANGE_GAME_STATE } from './reducers/eventTypes';
-
-const socket = io('http://localhost:8080');
+import { socket } from './objects';
 
 function connectToServer(username) {
   return (dispatch) => {
