@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 import Lobby from '../components/Lobby';
 
 function LobbyContainer(props) {
-  return <Lobby users={props.users} />;
+  return <Lobby primaryUser={props.primaryUser} users={props.users} />;
 }
 
 LobbyContainer.propTypes = {
+  primaryUser: PropTypes.shape({
+    username: PropTypes.string,
+    host: PropTypes.bool,
+  }).isRequired,
   users: PropTypes.arrayOf(PropTypes.shape({
     username: PropTypes.string,
     host: PropTypes.bool,
@@ -16,7 +20,10 @@ LobbyContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    users: Object.keys(state.users).map(user => state.users[user]),
+    primaryUser: state.users[state.primaryUserId],
+    users: Object.keys(state.users)
+      .filter(key => key !== state.primaryUserId)
+      .map(user => state.users[user]),
   };
 }
 
