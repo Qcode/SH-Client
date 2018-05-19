@@ -9,8 +9,14 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_GAME_STATE:
       return { ...state, gameState: action.newState };
-    case SYNC_USERS:
-      return { ...state, users: Object.assign(state.users, action.users) };
+    case SYNC_USERS: {
+      const { primaryUserId, ...users } = action.users;
+      return {
+        ...state,
+        primaryUserId,
+        users,
+      };
+    }
     default:
       return state;
   }
