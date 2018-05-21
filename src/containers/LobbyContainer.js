@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Lobby from '../components/Lobby';
+import { startGame } from '../api';
 
 function LobbyContainer(props) {
-  return <Lobby primaryUser={props.primaryUser} users={props.users} />;
+  return <Lobby startGame={startGame} primaryUser={props.primaryUser} users={props.users} />;
 }
 
 LobbyContainer.propTypes = {

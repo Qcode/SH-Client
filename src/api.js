@@ -12,6 +12,8 @@ function connectToServer(username) {
   };
 }
 
-function sendAnotherThing() {}
+function startGame() {
+  socket.emit('startGame');
+}
 
-export { connectToServer, sendAnotherThing };
+export { connectToServer, startGame };
