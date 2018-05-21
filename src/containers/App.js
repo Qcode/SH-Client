@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginContainer from './LoginContainer';
 import LobbyContainer from './LobbyContainer';
+import GameContainer from './GameContainer';
 
 function App(props) {
   let view;
   switch (props.gameState) {
     case 'lobby':
       view = <LobbyContainer />;
+      break;
+    case 'game':
+      view = <GameContainer />;
       break;
     default:
       view = <LoginContainer />;
