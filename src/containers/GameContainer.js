@@ -2,9 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Game from '../components/Game';
+import { submitChancellor, voteForChancellor } from '../api';
+import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function GameContainer(props) {
-  return <Game primaryUser={props.primaryUser} users={props.users} />;
+  return (
+    <Game
+      gameStage={props.gameStage}
+      submitChancellor={submitChancellor}
+      voteForChancellor={voteForChancellor}
+      primaryUser={props.primaryUser}
+      users={props.users}
+    />
+  );
 }
 
 function mapStateToProps(state) {
@@ -13,22 +23,14 @@ function mapStateToProps(state) {
     users: Object.keys(state.users)
       .filter(key => key !== state.primaryUserId)
       .map(user => state.users[user]),
+    gameStage: state.gameStage,
   };
 }
 
 GameContainer.propTypes = {
-  primaryUser: PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-    isLiberal: PropTypes.bool,
-    isHitler: PropTypes.bool,
-  }).isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-    isLiberal: PropTypes.bool,
-    isHitler: PropTypes.bool,
-  })).isRequired,
+  primaryUser: userPropTypesShape.isRequired,
+  users: PropTypes.arrayOf(userPropTypesShape).isRequired,
+  gameStage: gameStagePropTypes.isRequired,
 };
 
 export default connect(mapStateToProps)(GameContainer);

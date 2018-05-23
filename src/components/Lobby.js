@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { userPropTypesShape } from '../objects';
 
 class Lobby extends Component {
   constructor(props) {
@@ -42,14 +43,8 @@ class Lobby extends Component {
 }
 
 Lobby.propTypes = {
-  primaryUser: PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-  }).isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-  })).isRequired,
+  primaryUser: userPropTypesShape.isRequired,
+  users: PropTypes.arrayOf(userPropTypesShape).isRequired,
   startGame: PropTypes.func.isRequired,
 };
 

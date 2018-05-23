@@ -1,7 +1,8 @@
-import { CHANGE_GAME_STATE, SYNC_USERS } from './eventTypes';
+import { CHANGE_GAME_STATE, SYNC_USERS, CHANGE_GAME_STAGE } from './eventTypes';
 
 const initialState = {
   gameState: 'login',
+  gameStage: 'chooseChancellor',
   users: {},
 };
 
@@ -16,6 +17,9 @@ const rootReducer = (state = initialState, action) => {
         primaryUserId,
         users,
       };
+    }
+    case CHANGE_GAME_STAGE: {
+      return { ...state, gameStage: action.newStage };
     }
     default:
       return state;
