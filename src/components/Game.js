@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ChancellorSelect from './ChancellorSelect';
+import ChancellorVote from './ChancellorVote';
+import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function stringClassification(property) {
   switch (typeof property) {
@@ -13,8 +16,23 @@ function stringClassification(property) {
 function Game(props) {
   return (
     <div>
-      <h1>Game</h1>
+      <h1>Game - {props.gameStage}</h1>
+      {props.gameStage === 'voteForChancellor' ? (
+        <ChancellorVote
+          nominee={
+            props.primaryUser.isChancellor
+              ? props.primaryUser
+              : props.users.filter(user => user.isChancellor)[0]
+          }
+          voteForChancellor={props.voteForChancellor}
+        />
+      ) : null}
       <h2>You</h2>
+      {props.primaryUser.isPresident ? <p>You are president this round.</p> : null}
+      {props.primaryUser.isChancellor ? <p>You have been elected chancellor this round.</p> : null}
+      {props.primaryUser.isPresident && props.gameStage === 'chooseChancellor' ? (
+        <ChancellorSelect users={props.users} submitChancellor={props.submitChancellor} />
+      ) : null}
       <p>
         User: {props.primaryUser.username}. Is liberal:{' '}
         {stringClassification(props.primaryUser.isLiberal)}. Is hitler:{' '}
@@ -24,7 +42,9 @@ function Game(props) {
       {props.users.map(user => (
         <p>
           User: {user.username}. Is liberal: {stringClassification(user.isLiberal)}. Is hitler:
-          {stringClassification(user.isHitler)}
+          {stringClassification(user.isHitler)}.
+          {user.isPresident ? 'This user is president for this round' : null}
+          {user.isChancellor ? 'This user is chancellor for this round' : null}
         </p>
       ))}
     </div>
@@ -32,18 +52,11 @@ function Game(props) {
 }
 
 Game.propTypes = {
-  primaryUser: PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-    isLiberal: PropTypes.bool,
-    isHitler: PropTypes.bool,
-  }).isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({
-    username: PropTypes.string,
-    host: PropTypes.bool,
-    isLiberal: PropTypes.bool,
-    isHitler: PropTypes.bool,
-  })).isRequired,
+  primaryUser: userPropTypesShape.isRequired,
+  users: PropTypes.arrayOf(userPropTypesShape).isRequired,
+  submitChancellor: PropTypes.func.isRequired,
+  voteForChancellor: PropTypes.func.isRequired,
+  gameStage: gameStagePropTypes.isRequired,
 };
 
 export default Game;

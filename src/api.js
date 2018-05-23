@@ -16,4 +16,12 @@ function startGame() {
   socket.emit('startGame');
 }
 
-export { connectToServer, startGame };
+function submitChancellor(chancellorId) {
+  socket.emit('submitChancellor', chancellorId);
+}
+
+function voteForChancellor(vote) {
+  socket.emit('chancellorVote', vote);
+}
+
+export { connectToServer, startGame, submitChancellor, voteForChancellor };
