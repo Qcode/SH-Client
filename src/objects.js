@@ -20,6 +20,7 @@ const gameStagePropTypes = PropTypes.oneOf([
   'chooseChancellor',
   'voteForChancellor',
   'presidentPolicySelect',
+  'chancellorPolicySelect',
 ]);
 
 export { socket, store, userPropTypesShape, gameStagePropTypes };
