@@ -24,4 +24,8 @@ function voteForChancellor(vote) {
   socket.emit('chancellorVote', vote);
 }
 
-export { connectToServer, startGame, submitChancellor, voteForChancellor };
+function submitDiscardCard(card) {
+  socket.emit('discardCard', card);
+}
+
+export { connectToServer, startGame, submitChancellor, voteForChancellor, submitDiscardCard };

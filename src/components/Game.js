@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ChancellorSelect from './ChancellorSelect';
 import ChancellorVote from './ChancellorVote';
+import CardSelect from './CardSelect';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function stringClassification(property) {
@@ -17,6 +18,9 @@ function Game(props) {
   return (
     <div>
       <h1>Game - {props.gameStage}</h1>
+      <h2>Score</h2>
+      <p>Liberals: {props.score.liberal}</p>
+      <p>Fascists: {props.score.fascist}</p>
       {props.gameStage === 'voteForChancellor' ? (
         <ChancellorVote
           nominee={
@@ -32,6 +36,11 @@ function Game(props) {
       {props.primaryUser.isChancellor ? <p>You have been elected chancellor this round.</p> : null}
       {props.primaryUser.isPresident && props.gameStage === 'chooseChancellor' ? (
         <ChancellorSelect users={props.users} submitChancellor={props.submitChancellor} />
+      ) : null}
+      {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
+        (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
+      props.primaryUser.cards ? (
+        <CardSelect submitDiscardCard={props.submitDiscardCard} cards={props.primaryUser.cards} />
       ) : null}
       <p>
         User: {props.primaryUser.username}. Is liberal:{' '}
@@ -57,6 +66,12 @@ Game.propTypes = {
   submitChancellor: PropTypes.func.isRequired,
   voteForChancellor: PropTypes.func.isRequired,
   gameStage: gameStagePropTypes.isRequired,
+  submitDiscardCard: PropTypes.func.isRequired,
+  score: PropTypes.shape({ liberal: PropTypes.number, fascist: PropTypes.number }),
+};
+
+Game.defaultProps = {
+  score: { liberal: 0, fascist: 0 },
 };
 
 export default Game;
