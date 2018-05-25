@@ -4,21 +4,17 @@ import { connect } from 'react-redux';
 import LoginContainer from './LoginContainer';
 import LobbyContainer from './LobbyContainer';
 import GameContainer from './GameContainer';
+import GameOverContainer from './GameOverContainer';
 
 function App(props) {
-  let view;
-  switch (props.gameState) {
-    case 'lobby':
-      view = <LobbyContainer />;
-      break;
-    case 'game':
-      view = <GameContainer />;
-      break;
-    default:
-      view = <LoginContainer />;
-      break;
-  }
-  return <div className="App">{view}</div>;
+  const views = {
+    lobby: LobbyContainer,
+    game: GameContainer,
+    gameOver: GameOverContainer,
+    login: LoginContainer,
+  };
+
+  return <div className="App">{React.createElement(views[props.gameState])}</div>;
 }
 
 function mapStateToProps(state) {

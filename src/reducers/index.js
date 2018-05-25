@@ -4,6 +4,7 @@ import {
   CHANGE_GAME_STAGE,
   SYNC_USER,
   GET_SCORE,
+  GAME_OVER_REASON,
 } from './eventTypes';
 
 const initialState = {
@@ -42,6 +43,9 @@ const rootReducer = (state = initialState, action) => {
     }
     case CHANGE_GAME_STAGE: {
       return { ...state, gameStage: action.newStage };
+    }
+    case GAME_OVER_REASON: {
+      return { ...state, gameOverReason: action.reason };
     }
     default:
       return state;
