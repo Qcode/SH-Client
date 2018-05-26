@@ -1,9 +1,9 @@
 import {
-  CHANGE_GAME_STATE,
+  SET_GAME_STATE,
   SYNC_USERS,
-  CHANGE_GAME_STAGE,
+  SET_GAME_STAGE,
   SYNC_USER,
-  GET_SCORE,
+  SYNC_SCORE,
   GAME_OVER_REASON,
 } from './eventTypes';
 
@@ -16,7 +16,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_GAME_STATE:
+    case SET_GAME_STATE:
       return { ...state, gameState: action.newState };
     case SYNC_USERS: {
       const { primaryUserId, ...users } = action.users;
@@ -35,13 +35,13 @@ const rootReducer = (state = initialState, action) => {
         },
       };
     }
-    case GET_SCORE: {
+    case SYNC_SCORE: {
       return {
         ...state,
         score: action.score,
       };
     }
-    case CHANGE_GAME_STAGE: {
+    case SET_GAME_STAGE: {
       return { ...state, gameStage: action.newStage };
     }
     case GAME_OVER_REASON: {

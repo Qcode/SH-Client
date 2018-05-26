@@ -1,6 +1,11 @@
-export const CHANGE_GAME_STATE = 'CHANGE_GAME_STATE';
+export const SET_GAME_STATE = 'SET_GAME_STATE';
 export const SYNC_USERS = 'SYNC_USERS';
-export const CHANGE_GAME_STAGE = 'CHANGE_GAME_STAGE';
+export const SET_GAME_STAGE = 'SET_GAME_STAGE';
 export const SYNC_USER = 'SYNC_USER';
-export const GET_SCORE = 'GET_SCORE';
+export const SYNC_SCORE = 'SYNC_SCORE';
 export const GAME_OVER_REASON = 'GAME_OVER_REASON';
+export const JOIN_GAME = 'JOIN_GAME';
+export const START_GAME = 'START_GAME';
+export const SUBMIT_CHANCELLOR = 'SUBMIT_CHANCELLOR';
+export const VOTE_FOR_CHANCELLOR = 'VOTE_FOR_CHANCELLOR';
+export const DISCARD_CARD = 'DISCARD_CARD';
