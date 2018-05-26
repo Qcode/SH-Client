@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ChancellorSelect from './ChancellorSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
+import FascistPower from './FascistPower';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function stringClassification(property) {
@@ -29,6 +30,14 @@ function Game(props) {
               : props.users.filter(user => user.isChancellor)[0]
           }
           voteForChancellor={props.voteForChancellor}
+        />
+      ) : null}
+      {props.gameStage === 'fascistPower' && props.primaryUser.isPresident ? (
+        <FascistPower
+          enactFascistPower={props.enactFascistPower}
+          type={props.fascistPower}
+          info={props.fascistInfo}
+          users={props.users}
         />
       ) : null}
       <h2>You</h2>
@@ -68,6 +77,9 @@ Game.propTypes = {
   gameStage: gameStagePropTypes.isRequired,
   submitDiscardCard: PropTypes.func.isRequired,
   score: PropTypes.shape({ liberal: PropTypes.number, fascist: PropTypes.number }),
+  enactFascistPower: PropTypes.func.isRequired,
+  fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
+  fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
 };
 
 Game.defaultProps = {

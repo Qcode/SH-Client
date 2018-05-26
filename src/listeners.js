@@ -6,6 +6,8 @@ import {
   SET_GAME_STAGE,
   SYNC_SCORE,
   GAME_OVER_REASON,
+  FASCIST_POWER,
+  FASCIST_INFO,
 } from './reducers/eventTypes';
 
 socket.on(SYNC_USERS, (data) => {
@@ -30,4 +32,13 @@ socket.on(SET_GAME_STAGE, (data) => {
 
 socket.on(SYNC_SCORE, (data) => {
   store.dispatch({ type: SYNC_SCORE, score: data });
+});
+
+socket.on(FASCIST_POWER, (data) => {
+  console.log('fascist power', data);
+  store.dispatch({ type: FASCIST_POWER, power: data });
+});
+
+socket.on(FASCIST_INFO, (data) => {
+  store.dispatch({ type: FASCIST_INFO, info: data });
 });
