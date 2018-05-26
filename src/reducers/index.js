@@ -5,6 +5,8 @@ import {
   SYNC_USER,
   SYNC_SCORE,
   GAME_OVER_REASON,
+  FASCIST_POWER,
+  FASCIST_INFO,
 } from './eventTypes';
 
 const initialState = {
@@ -12,6 +14,11 @@ const initialState = {
   gameStage: 'chooseChancellor',
   users: {},
   score: { liberal: 0, fascist: 0 },
+  fascistPower: 'none',
+  // Fascist info could be:
+  // array of 3 cards after peeking draw pile
+  // fascist/liberal after peeking secret rol
+  fascistInfo: undefined,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -46,6 +53,12 @@ const rootReducer = (state = initialState, action) => {
     }
     case GAME_OVER_REASON: {
       return { ...state, gameOverReason: action.reason };
+    }
+    case FASCIST_POWER: {
+      return { ...state, fascistPower: action.power };
+    }
+    case FASCIST_INFO: {
+      return { ...state, fascistInfo: action.info };
     }
     default:
       return state;

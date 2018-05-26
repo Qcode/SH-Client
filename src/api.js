@@ -5,6 +5,7 @@ import {
   SUBMIT_CHANCELLOR,
   VOTE_FOR_CHANCELLOR,
   DISCARD_CARD,
+  ENACT_FASCIST_POWER,
 } from './reducers/eventTypes';
 import { socket } from './objects';
 
@@ -35,4 +36,15 @@ function submitDiscardCard(card) {
   socket.emit(DISCARD_CARD, card);
 }
 
-export { connectToServer, startGame, submitChancellor, voteForChancellor, submitDiscardCard };
+function enactFascistPower(info) {
+  socket.emit(ENACT_FASCIST_POWER, info);
+}
+
+export {
+  connectToServer,
+  startGame,
+  submitChancellor,
+  voteForChancellor,
+  submitDiscardCard,
+  enactFascistPower,
+};
