@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChancellorSelect from './ChancellorSelect';
+import UserSelect from './UserSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
 import FascistPower from './FascistPower';
@@ -44,7 +44,14 @@ function Game(props) {
       {props.primaryUser.isPresident ? <p>You are president this round.</p> : null}
       {props.primaryUser.isChancellor ? <p>You have been elected chancellor this round.</p> : null}
       {props.primaryUser.isPresident && props.gameStage === 'chooseChancellor' ? (
-        <ChancellorSelect users={props.users} submitChancellor={props.submitChancellor} />
+        <div>
+          <p>Elect a chancellor using the form below.</p>
+          <UserSelect
+            submitText="Select Chancellor"
+            users={props.users}
+            onSubmit={props.submitChancellor}
+          />
+        </div>
       ) : null}
       {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
         (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&

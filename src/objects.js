@@ -9,11 +9,16 @@ const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 window.store = store;
 
 const userPropTypesShape = PropTypes.shape({
+  id: PropTypes.string,
   username: PropTypes.string,
   host: PropTypes.bool,
   isLiberal: PropTypes.bool,
   isHitler: PropTypes.bool,
-  id: PropTypes.string,
+  isChancellor: PropTypes.bool,
+  isPresident: PropTypes.bool,
+  voteCast: PropTypes.oneOf([0, 1, 'uncast']),
+  cards: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])),
+  isDead: PropTypes.bool,
 });
 
 const gameStagePropTypes = PropTypes.oneOf([

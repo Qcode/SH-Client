@@ -35,7 +35,6 @@ socket.on(SYNC_SCORE, (data) => {
 });
 
 socket.on(FASCIST_POWER, (data) => {
-  console.log('fascist power', data);
   store.dispatch({ type: FASCIST_POWER, power: data });
 });
 
