@@ -50,6 +50,16 @@ function Game(props) {
             submitText="Select Chancellor"
             users={props.users}
             onSubmit={props.submitChancellor}
+            optionMapFunction={user =>
+              (!user.isTermLimited ? (
+                <option value={user.id}>{user.username}</option>
+              ) : (
+                <option disabled value={user.id}>
+                  {user.username} - term limited
+                </option>
+              ))
+            }
+            getFirstUser={users => users.find(user => !user.isTermLimited)}
           />
         </div>
       ) : null}

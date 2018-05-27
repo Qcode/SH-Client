@@ -5,7 +5,7 @@ import { userPropTypesShape } from '../objects';
 class UserSelect extends Component {
   constructor(props) {
     super(props);
-    this.state = { userSelected: props.users[0].id };
+    this.state = { userSelected: props.getFirstUser(props.users).id };
 
     this.submitForm = this.submitForm.bind(this);
 
@@ -25,7 +25,7 @@ class UserSelect extends Component {
     return (
       <form onSubmit={this.submitForm}>
         <select required onChange={this.handleUserChange}>
-          {this.props.users.map(user => <option value={user.id}>{user.username}</option>)}
+          {this.props.users.map(this.props.optionMapFunction)}
         </select>
         <input type="submit" value={this.props.submitText} />
       </form>
@@ -37,10 +37,14 @@ UserSelect.propTypes = {
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
   onSubmit: PropTypes.func.isRequired,
   submitText: PropTypes.string,
+  optionMapFunction: PropTypes.func,
+  getFirstUser: PropTypes.func,
 };
 
 UserSelect.defaultProps = {
   submitText: 'Submit',
+  optionMapFunction: user => <option value={user.id}>{user.username}</option>,
+  getFirstUser: users => users[0],
 };
 
 export default UserSelect;
