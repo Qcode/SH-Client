@@ -9,6 +9,7 @@ import {
   FASCIST_INFO,
   GET_MEMO,
   DISMISS_MEMO,
+  SYNC_FAILED_GOVERNMENTS,
 } from './eventTypes';
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   // fascist/liberal after peeking secret rol
   fascistInfo: undefined,
   memoQueue: [],
+  failedGovernments: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -68,6 +70,9 @@ const rootReducer = (state = initialState, action) => {
     }
     case DISMISS_MEMO: {
       return { ...state, memoQueue: state.memoQueue.slice(1) };
+    }
+    case SYNC_FAILED_GOVERNMENTS: {
+      return { ...state, failedGovernments: action.failedGovernments };
     }
     default:
       return state;
