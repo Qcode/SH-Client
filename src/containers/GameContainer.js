@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Game from '../components/Game';
 import { submitChancellor, voteForChancellor, submitDiscardCard, enactFascistPower } from '../api';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
+import { DISMISS_MEMO } from '../reducers/eventTypes';
 
 function GameContainer(props) {
   if (props.primaryUser.isDead) {
@@ -30,6 +32,8 @@ function GameContainer(props) {
       score={props.score}
       fascistInfo={props.fascistInfo}
       fascistPower={props.fascistPower}
+      memos={props.memos}
+      dismissMemo={props.dismissMemo}
     />
   );
 }
@@ -44,7 +48,19 @@ function mapStateToProps(state) {
     score: state.score,
     fascistPower: state.fascistPower,
     fascistInfo: state.fascistInfo,
+    memos: state.memoQueue,
   };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      dismissMemo: () => {
+        dispatch({ type: DISMISS_MEMO });
+      },
+    },
+    dispatch,
+  );
 }
 
 GameContainer.propTypes = {
@@ -54,10 +70,13 @@ GameContainer.propTypes = {
   score: PropTypes.shape({ liberal: PropTypes.number, fascist: PropTypes.number }),
   fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
+  memos: PropTypes.arrayOf(PropTypes.string),
+  dismissMemo: PropTypes.func.isRequired,
 };
 
 GameContainer.defaultProps = {
   score: { liberal: 0, fascist: 0 },
+  memos: [],
 };
 
-export default connect(mapStateToProps)(GameContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

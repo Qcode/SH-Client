@@ -12,3 +12,5 @@ export const DISCARD_CARD = 'DISCARD_CARD';
 export const FASCIST_POWER = 'FASCIST_POWER';
 export const FASCIST_INFO = 'FASCIST_INFO';
 export const ENACT_FASCIST_POWER = 'ENACT_FASCIST_POWER';
+export const GET_MEMO = 'GET_MEMO';
+export const DISMISS_MEMO = 'DISMISS_MEMO';

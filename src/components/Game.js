@@ -4,6 +4,7 @@ import UserSelect from './UserSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
 import FascistPower from './FascistPower';
+import Memo from './Memo';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function stringClassification(property) {
@@ -22,6 +23,12 @@ function Game(props) {
       <h2>Score</h2>
       <p>Liberals: {props.score.liberal}</p>
       <p>Fascists: {props.score.fascist}</p>
+      {props.memos.length > 0 ? (
+        <div>
+          <h2>Memos: </h2>
+          <Memo dismissMemo={props.dismissMemo} memo={props.memos[0]} />
+        </div>
+      ) : null}
       {props.gameStage === 'voteForChancellor' ? (
         <ChancellorVote
           nominee={
@@ -97,10 +104,13 @@ Game.propTypes = {
   enactFascistPower: PropTypes.func.isRequired,
   fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
+  memos: PropTypes.arrayOf(PropTypes.string),
+  dismissMemo: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {
   score: { liberal: 0, fascist: 0 },
+  memos: [],
 };
 
 export default Game;

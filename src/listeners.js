@@ -8,6 +8,7 @@ import {
   GAME_OVER_REASON,
   FASCIST_POWER,
   FASCIST_INFO,
+  GET_MEMO,
 } from './reducers/eventTypes';
 
 socket.on(SYNC_USERS, (data) => {
@@ -40,4 +41,8 @@ socket.on(FASCIST_POWER, (data) => {
 
 socket.on(FASCIST_INFO, (data) => {
   store.dispatch({ type: FASCIST_INFO, info: data });
+});
+
+socket.on(GET_MEMO, (data) => {
+  store.dispatch({ type: GET_MEMO, memo: data });
 });

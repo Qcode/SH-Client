@@ -7,6 +7,8 @@ import {
   GAME_OVER_REASON,
   FASCIST_POWER,
   FASCIST_INFO,
+  GET_MEMO,
+  DISMISS_MEMO,
 } from './eventTypes';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   // array of 3 cards after peeking draw pile
   // fascist/liberal after peeking secret rol
   fascistInfo: undefined,
+  memoQueue: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -59,6 +62,12 @@ const rootReducer = (state = initialState, action) => {
     }
     case FASCIST_INFO: {
       return { ...state, fascistInfo: action.info };
+    }
+    case GET_MEMO: {
+      return { ...state, memoQueue: state.memoQueue.concat([action.memo]) };
+    }
+    case DISMISS_MEMO: {
+      return { ...state, memoQueue: state.memoQueue.slice(1) };
     }
     default:
       return state;
