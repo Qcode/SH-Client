@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import UserSelect from './UserSelect';
+import { userPropTypesShape } from '../objects';
 
 function FascistPower(props) {
   const titles = {
     cardPeek: 'Card Peek',
+    kill: 'Execution time!',
   };
 
   const bodies = {
     cardPeek: 'These are the next three cards to be played',
+    kill: 'Choose a player to execute using the form below',
   };
 
   const getResponses = {
@@ -26,6 +30,13 @@ function FascistPower(props) {
         <input type="submit" value="Continue Game" />
       </form>
     ),
+    kill: (
+      <UserSelect
+        submitText="I formally execute this player."
+        users={props.users}
+        onSubmit={props.enactFascistPower}
+      />
+    ),
   };
 
   return (
@@ -42,6 +53,7 @@ FascistPower.propTypes = {
   type: PropTypes.oneOf(['cardPeek']).isRequired,
   info: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
   enactFascistPower: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(userPropTypesShape).isRequired,
 };
 
 export default FascistPower;
