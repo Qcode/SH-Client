@@ -34,6 +34,7 @@ function GameContainer(props) {
       fascistPower={props.fascistPower}
       memos={props.memos}
       dismissMemo={props.dismissMemo}
+      failedGovernments={props.failedGovernments}
     />
   );
 }
@@ -49,6 +50,7 @@ function mapStateToProps(state) {
     fascistPower: state.fascistPower,
     fascistInfo: state.fascistInfo,
     memos: state.memoQueue,
+    failedGovernments: state.failedGovernments,
   };
 }
 
@@ -72,11 +74,13 @@ GameContainer.propTypes = {
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
   memos: PropTypes.arrayOf(PropTypes.string),
   dismissMemo: PropTypes.func.isRequired,
+  failedGovernments: PropTypes.number,
 };
 
 GameContainer.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
+  failedGovernments: 0,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

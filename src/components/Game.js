@@ -23,6 +23,7 @@ function Game(props) {
       <h2>Score</h2>
       <p>Liberals: {props.score.liberal}</p>
       <p>Fascists: {props.score.fascist}</p>
+      <p>Failed Governments: {props.failedGovernments}/3</p>
       {props.memos.length > 0 ? (
         <div>
           <h2>Memos: </h2>
@@ -106,11 +107,13 @@ Game.propTypes = {
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
   memos: PropTypes.arrayOf(PropTypes.string),
   dismissMemo: PropTypes.func.isRequired,
+  failedGovernments: PropTypes.number,
 };
 
 Game.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
+  failedGovernments: 0,
 };
 
 export default Game;

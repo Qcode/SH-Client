@@ -9,6 +9,7 @@ import {
   FASCIST_POWER,
   FASCIST_INFO,
   GET_MEMO,
+  SYNC_FAILED_GOVERNMENTS,
 } from './reducers/eventTypes';
 
 socket.on(SYNC_USERS, (data) => {
@@ -45,4 +46,8 @@ socket.on(FASCIST_INFO, (data) => {
 
 socket.on(GET_MEMO, (data) => {
   store.dispatch({ type: GET_MEMO, memo: data });
+});
+
+socket.on(SYNC_FAILED_GOVERNMENTS, (failedGovernments) => {
+  store.dispatch({ type: SYNC_FAILED_GOVERNMENTS, failedGovernments });
 });
