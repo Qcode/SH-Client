@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Game from '../components/Game';
-import { submitChancellor, voteForChancellor, submitDiscardCard, enactFascistPower } from '../api';
+import {
+  submitChancellor,
+  voteForChancellor,
+  submitDiscardCard,
+  enactFascistPower,
+  submitVetoRequest,
+  respondVetoRequest,
+} from '../api';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 import { DISMISS_MEMO } from '../reducers/eventTypes';
 
@@ -35,6 +42,9 @@ function GameContainer(props) {
       memos={props.memos}
       dismissMemo={props.dismissMemo}
       failedGovernments={props.failedGovernments}
+      submitVetoRequest={submitVetoRequest}
+      respondVetoRequest={respondVetoRequest}
+      receivedVetoRequest={props.receivedVetoRequest}
     />
   );
 }
@@ -51,6 +61,7 @@ function mapStateToProps(state) {
     fascistInfo: state.fascistInfo,
     memos: state.memoQueue,
     failedGovernments: state.failedGovernments,
+    receivedVetoRequest: state.receivedVetoRequest,
   };
 }
 
@@ -75,12 +86,14 @@ GameContainer.propTypes = {
   memos: PropTypes.arrayOf(PropTypes.string),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
+  receivedVetoRequest: PropTypes.bool,
 };
 
 GameContainer.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
   failedGovernments: 0,
+  receivedVetoRequest: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

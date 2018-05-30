@@ -6,6 +6,8 @@ import {
   VOTE_FOR_CHANCELLOR,
   DISCARD_CARD,
   ENACT_FASCIST_POWER,
+  SUBMIT_VETO_REQUEST,
+  RESPOND_VETO_REQUEST,
 } from './reducers/eventTypes';
 import { socket } from './objects';
 
@@ -40,6 +42,14 @@ function enactFascistPower(info) {
   socket.emit(ENACT_FASCIST_POWER, info);
 }
 
+function submitVetoRequest() {
+  socket.emit(SUBMIT_VETO_REQUEST);
+}
+
+function respondVetoRequest(decision) {
+  socket.emit(RESPOND_VETO_REQUEST, decision);
+}
+
 export {
   connectToServer,
   startGame,
@@ -47,4 +57,6 @@ export {
   voteForChancellor,
   submitDiscardCard,
   enactFascistPower,
+  submitVetoRequest,
+  respondVetoRequest,
 };
