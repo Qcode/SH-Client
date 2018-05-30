@@ -10,6 +10,7 @@ import {
   GET_MEMO,
   DISMISS_MEMO,
   SYNC_FAILED_GOVERNMENTS,
+  RECEIVE_VETO_REQUEST,
 } from './eventTypes';
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   fascistInfo: undefined,
   memoQueue: [],
   failedGovernments: 0,
+  receivedVetoRequest: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -54,7 +56,7 @@ const rootReducer = (state = initialState, action) => {
       };
     }
     case SET_GAME_STAGE: {
-      return { ...state, gameStage: action.newStage };
+      return { ...state, gameStage: action.newStage, receivedVetoRequest: false };
     }
     case GAME_OVER_REASON: {
       return { ...state, gameOverReason: action.reason };
@@ -73,6 +75,9 @@ const rootReducer = (state = initialState, action) => {
     }
     case SYNC_FAILED_GOVERNMENTS: {
       return { ...state, failedGovernments: action.failedGovernments };
+    }
+    case RECEIVE_VETO_REQUEST: {
+      return { ...state, receivedVetoRequest: true };
     }
     default:
       return state;

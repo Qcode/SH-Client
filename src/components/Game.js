@@ -4,6 +4,8 @@ import UserSelect from './UserSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
 import FascistPower from './FascistPower';
+import VetoForm from './VetoForm';
+import VetoRespond from './VetoRespond';
 import Memo from './Memo';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
@@ -71,6 +73,14 @@ function Game(props) {
           />
         </div>
       ) : null}
+      {props.gameStage === 'chancellorPolicySelect' &&
+        props.primaryUser.isPresident &&
+        props.receivedVetoRequest && <VetoRespond respondVetoRequest={props.respondVetoRequest} />}
+      {props.gameStage === 'chancellorPolicySelect' &&
+      props.primaryUser.isChancellor &&
+      props.score.fascist === 5 ? (
+        <VetoForm submitVetoRequest={props.submitVetoRequest} />
+      ) : null}
       {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
         (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
       props.primaryUser.cards ? (
@@ -108,12 +118,16 @@ Game.propTypes = {
   memos: PropTypes.arrayOf(PropTypes.string),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
+  submitVetoRequest: PropTypes.func.isRequired,
+  receivedVetoRequest: PropTypes.bool,
+  respondVetoRequest: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
   failedGovernments: 0,
+  receivedVetoRequest: false,
 };
 
 export default Game;
