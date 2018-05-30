@@ -44,7 +44,6 @@ function GameContainer(props) {
       failedGovernments={props.failedGovernments}
       submitVetoRequest={submitVetoRequest}
       respondVetoRequest={respondVetoRequest}
-      receivedVetoRequest={props.receivedVetoRequest}
     />
   );
 }
@@ -61,7 +60,6 @@ function mapStateToProps(state) {
     fascistInfo: state.fascistInfo,
     memos: state.memoQueue,
     failedGovernments: state.failedGovernments,
-    receivedVetoRequest: state.receivedVetoRequest,
   };
 }
 
@@ -86,14 +84,12 @@ GameContainer.propTypes = {
   memos: PropTypes.arrayOf(PropTypes.string),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
-  receivedVetoRequest: PropTypes.bool,
 };
 
 GameContainer.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
   failedGovernments: 0,
-  receivedVetoRequest: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

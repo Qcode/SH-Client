@@ -75,7 +75,9 @@ function Game(props) {
       ) : null}
       {props.gameStage === 'chancellorPolicySelect' &&
         props.primaryUser.isPresident &&
-        props.receivedVetoRequest && <VetoRespond respondVetoRequest={props.respondVetoRequest} />}
+        props.users.filter(user => user.isChancellor)[0].usedVeto && (
+          <VetoRespond respondVetoRequest={props.respondVetoRequest} />
+        )}
       {props.gameStage === 'chancellorPolicySelect' &&
       props.primaryUser.isChancellor &&
       props.score.fascist === 5 ? (
@@ -119,7 +121,6 @@ Game.propTypes = {
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
   submitVetoRequest: PropTypes.func.isRequired,
-  receivedVetoRequest: PropTypes.bool,
   respondVetoRequest: PropTypes.func.isRequired,
 };
 
@@ -127,7 +128,6 @@ Game.defaultProps = {
   score: { liberal: 0, fascist: 0 },
   memos: [],
   failedGovernments: 0,
-  receivedVetoRequest: false,
 };
 
 export default Game;

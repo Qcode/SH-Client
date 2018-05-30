@@ -10,7 +10,6 @@ import {
   GET_MEMO,
   DISMISS_MEMO,
   SYNC_FAILED_GOVERNMENTS,
-  RECEIVE_VETO_REQUEST,
 } from './eventTypes';
 
 const initialState = {
@@ -75,9 +74,6 @@ const rootReducer = (state = initialState, action) => {
     }
     case SYNC_FAILED_GOVERNMENTS: {
       return { ...state, failedGovernments: action.failedGovernments };
-    }
-    case RECEIVE_VETO_REQUEST: {
-      return { ...state, receivedVetoRequest: true };
     }
     default:
       return state;

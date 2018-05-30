@@ -10,7 +10,6 @@ import {
   FASCIST_INFO,
   GET_MEMO,
   SYNC_FAILED_GOVERNMENTS,
-  RECEIVE_VETO_REQUEST,
 } from './reducers/eventTypes';
 
 socket.on(SYNC_USERS, (data) => {
@@ -51,8 +50,4 @@ socket.on(GET_MEMO, (data) => {
 
 socket.on(SYNC_FAILED_GOVERNMENTS, (failedGovernments) => {
   store.dispatch({ type: SYNC_FAILED_GOVERNMENTS, failedGovernments });
-});
-
-socket.on(RECEIVE_VETO_REQUEST, () => {
-  store.dispatch({ type: RECEIVE_VETO_REQUEST });
 });
