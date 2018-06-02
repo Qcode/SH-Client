@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { MenuItem, Select, Button } from '@material-ui/core';
 import { userPropTypesShape } from '../objects';
 
 class UserSelect extends Component {
@@ -12,8 +13,7 @@ class UserSelect extends Component {
     this.handleUserChange = this.handleUserChange.bind(this);
   }
 
-  submitForm(event) {
-    event.preventDefault();
+  submitForm() {
     this.props.onSubmit(this.state.userSelected);
   }
 
@@ -23,12 +23,14 @@ class UserSelect extends Component {
 
   render() {
     return (
-      <form onSubmit={this.submitForm}>
-        <select required onChange={this.handleUserChange}>
+      <div>
+        <Select value={this.state.userSelected} required onChange={this.handleUserChange}>
           {this.props.users.map(this.props.optionMapFunction)}
-        </select>
-        <input type="submit" value={this.props.submitText} />
-      </form>
+        </Select>
+        <Button variant="outlined" color="primary" onClick={this.submitForm}>
+          {this.props.submitText}
+        </Button>
+      </div>
     );
   }
 }
@@ -43,7 +45,7 @@ UserSelect.propTypes = {
 
 UserSelect.defaultProps = {
   submitText: 'Submit',
-  optionMapFunction: user => <option value={user.id}>{user.username}</option>,
+  optionMapFunction: user => <MenuItem value={user.id}>{user.username}</MenuItem>,
   getFirstUser: users => users[0],
 };
 

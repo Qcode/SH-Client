@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, TextField } from '@material-ui/core';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -14,21 +16,23 @@ class Login extends Component {
     this.setState({ username: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit() {
     this.props.connectToServer(this.state.username);
-    event.preventDefault();
   }
 
   render() {
     return (
-      <div className="game-container">
+      <div className="login-container">
         <h1>Join Game</h1>
         <p>Please enter a username</p>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleUsernameChange} id="username" type="text" />
-          <br />
-          <input type="submit" value="Join Game" />
-        </form>
+        <div className="login-container__text">
+          <TextField onChange={this.handleUsernameChange} placeholder="My Username" />
+        </div>
+        <div>
+          <Button variant="outlined" color="primary" onClick={this.handleSubmit}>
+            Join Game
+          </Button>
+        </div>
       </div>
     );
   }

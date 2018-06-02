@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1bb75;
+  margin: 0;
+  font-family: Raleway;
+  color: #383633;
+}
+
+header {
+  background-color: #383633;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: white;
+  font-family: 'Germania One';
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 #e16d54;
+}
+
+header img {
+  width: 20rem;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

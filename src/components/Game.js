@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MenuItem from '@material-ui/core/MenuItem';
 import UserSelect from './UserSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
@@ -7,6 +8,7 @@ import FascistPower from './FascistPower';
 import VetoForm from './VetoForm';
 import VetoRespond from './VetoRespond';
 import Memo from './Memo';
+import Score from './Score';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
 
 function stringClassification(property) {
@@ -18,14 +20,27 @@ function stringClassification(property) {
   }
 }
 
+function getGameSize(userCount) {
+  return {
+    1: 'small',
+    5: 'small',
+    6: 'small',
+    7: 'medium',
+    8: 'medium',
+    9: 'large',
+    10: 'large',
+  }[userCount];
+}
+
 function Game(props) {
   return (
     <div>
-      <h1>Game - {props.gameStage}</h1>
-      <h2>Score</h2>
-      <p>Liberals: {props.score.liberal}</p>
-      <p>Fascists: {props.score.fascist}</p>
-      <p>Failed Governments: {props.failedGovernments}/3</p>
+      <Score
+        liberal={props.score.liberal}
+        fascist={props.score.fascist}
+        failedGovernments={props.failedGovernments}
+        gameSize={getGameSize(props.users.length + 1)}
+      />
       {props.memos.length > 0 ? (
         <div>
           <h2>Memos: </h2>
@@ -57,16 +72,16 @@ function Game(props) {
         <div>
           <p>Elect a chancellor using the form below.</p>
           <UserSelect
-            submitText="Select Chancellor"
+            submitText="Nominate Chancellor"
             users={props.users}
             onSubmit={props.submitChancellor}
             optionMapFunction={user =>
               (!user.isTermLimited ? (
-                <option value={user.id}>{user.username}</option>
+                <MenuItem value={user.id}>{user.username}</MenuItem>
               ) : (
-                <option disabled value={user.id}>
+                <MenuItem disabled value={user.id}>
                   {user.username} - term limited
-                </option>
+                </MenuItem>
               ))
             }
             getFirstUser={users => users.find(user => !user.isTermLimited)}

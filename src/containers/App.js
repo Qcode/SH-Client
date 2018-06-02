@@ -5,6 +5,7 @@ import LoginContainer from './LoginContainer';
 import LobbyContainer from './LobbyContainer';
 import GameContainer from './GameContainer';
 import GameOverContainer from './GameOverContainer';
+import './App.css';
 
 function App(props) {
   const views = {
@@ -14,7 +15,12 @@ function App(props) {
     login: LoginContainer,
   };
 
-  return <div className="App">{React.createElement(views[props.gameState])}</div>;
+  return (
+    <div>
+      <header>Secret Hitler</header>
+      <div className="App">{React.createElement(views[props.gameState])}</div>
+    </div>
+  );
 }
 
 function mapStateToProps(state) {
