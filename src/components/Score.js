@@ -1,7 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
-import liberalBoard from '../assets/liberal-board.png';
+import liberalBoard0 from '../assets/liberal-board-0.png';
+import liberalBoard1 from '../assets/liberal-board-1.png';
+import liberalBoard2 from '../assets/liberal-board-2.png';
+import liberalBoard3 from '../assets/liberal-board-3.png';
 import fascistBoardSmall from '../assets/fascist-board-small.png';
 import fascistBoardMedium from '../assets/fascist-board-medium.png';
 import fascistBoardLarge from '../assets/fascist-board-large.png';
@@ -14,6 +17,13 @@ function Score(props) {
     small: fascistBoardSmall,
     medium: fascistBoardMedium,
     large: fascistBoardLarge,
+  };
+
+  const liberalBoardMap = {
+    0: liberalBoard0,
+    1: liberalBoard1,
+    2: liberalBoard2,
+    3: liberalBoard3,
   };
 
   return (
@@ -34,7 +44,11 @@ function Score(props) {
         ))}
       </div>
       <div className="score-board-container">
-        <img alt="Liberal Board" className="score-liberal-board score-board" src={liberalBoard} />
+        <img
+          alt="Liberal Board"
+          className="score-liberal-board score-board"
+          src={liberalBoardMap[props.failedGovernments]}
+        />
         {[...Array(props.liberal)].map((_, index) => (
           <img
             alt="Liberal Policy"
@@ -52,12 +66,14 @@ Score.propTypes = {
   liberal: PropTypes.number,
   fascist: PropTypes.number,
   gameSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  failedGovernments: PropTypes.number,
 };
 
 Score.defaultProps = {
   liberal: 0,
   fascist: 0,
   gameSize: 'small',
+  failedGovernments: 0,
 };
 
 export default Score;
