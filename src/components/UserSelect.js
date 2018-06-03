@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem, Select, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import UserCard from './UserCard';
+import { getRoleFromUser } from '../utils';
 import { userPropTypesShape } from '../objects';
+import './UserSelect.css';
 
 class UserSelect extends Component {
   constructor(props) {
@@ -17,18 +20,20 @@ class UserSelect extends Component {
     this.props.onSubmit(this.state.userSelected);
   }
 
-  handleUserChange(event) {
-    this.setState({ userSelected: event.target.value });
+  handleUserChange(newUserId) {
+    this.setState({ userSelected: newUserId });
   }
 
   render() {
     return (
-      <div>
-        <Select value={this.state.userSelected} required onChange={this.handleUserChange}>
+      <div className="user-select">
+        <div className="user-select-cards">
           {this.props.users.map(this.props.optionMapFunction)}
-        </Select>
-        <Button variant="outlined" color="primary" onClick={this.submitForm}>
-          {this.props.submitText}
+        </div>
+        <Button onClick={this.submitForm} variant="outlined" color="primary">
+          {`${this.props.submitPrefix} ${
+            this.props.users.find(user => user.id === this.state.userSelected).username
+          } ${this.props.submitSuffix}`}
         </Button>
       </div>
     );
@@ -38,14 +43,29 @@ class UserSelect extends Component {
 UserSelect.propTypes = {
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
   onSubmit: PropTypes.func.isRequired,
-  submitText: PropTypes.string,
+  submitPrefix: PropTypes.string,
+  submitSuffix: PropTypes.string,
   optionMapFunction: PropTypes.func,
   getFirstUser: PropTypes.func,
 };
 
 UserSelect.defaultProps = {
-  submitText: 'Submit',
-  optionMapFunction: user => <MenuItem value={user.id}>{user.username}</MenuItem>,
+  submitPrefix: 'Submit',
+  submitSuffix: '',
+  optionMapFunction: user => (
+    <button
+      onClick={() => {
+        this.handleUserChange(user.id);
+      }}
+    >
+      <UserCard
+        role={getRoleFromUser(user)}
+        roleImage={user.roleImage}
+        username={user.username}
+        selected={user.id === this.state.userSelected}
+      />
+    </button>
+  ),
   getFirstUser: users => users[0],
 };
 

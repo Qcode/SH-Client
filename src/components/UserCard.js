@@ -18,18 +18,23 @@ function UserCard(props) {
     hitler: 'Hitler role image',
   };
 
+  const appendSelected = className =>
+    (props.selected ? `${className} ${className}__selected` : className);
+
   return (
-    <div className="user-card-container">
+    <div className={appendSelected('user-card-container')}>
       <img
         className="user-card-image"
         alt={getAltFromRole[props.role]}
         src={getImageFromRole[props.role]()}
       />
       <div className="user-card-text-container">
-        <p>{props.voteCast !== 'uncast' && props.voteCast}</p>
-        {props.isPresident && <p>President</p>}
-        {props.isChancellor && <p>Chancellor</p>}
-        <p>{props.username}</p>
+        <p className={appendSelected('user-card-text')}>
+          {props.voteCast !== 'uncast' && props.voteCast}
+        </p>
+        {props.isPresident && <p className={appendSelected('user-card-text')}>President</p>}
+        {props.isChancellor && <p className={appendSelected('user-card-text')}>Chancellor</p>}
+        <p className={appendSelected('user-card-text')}>{props.username}</p>
       </div>
     </div>
   );
@@ -42,6 +47,7 @@ UserCard.propTypes = {
   isPresident: PropTypes.bool,
   isChancellor: PropTypes.bool,
   username: PropTypes.string.isRequired,
+  selected: PropTypes.bool,
 };
 
 UserCard.defaultProps = {
@@ -49,6 +55,7 @@ UserCard.defaultProps = {
   voteCast: 'uncast',
   isPresident: false,
   isChancellor: false,
+  selected: false,
 };
 
 export default UserCard;

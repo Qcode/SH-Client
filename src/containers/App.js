@@ -17,7 +17,9 @@ function App(props) {
 
   return (
     <div>
-      <header>Secret Hitler</header>
+      <header>
+        <span className="title-text">Secret Hitler</span>
+      </header>
       <div className="App">{React.createElement(views[props.gameState])}</div>
     </div>
   );

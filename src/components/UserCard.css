@@ -3,14 +3,22 @@
   height: 150px;
   position: relative;
   text-align: center;
-  border: 2px solid white;
-  border-radius: 2px;
+  border: 4px solid white;
+  border-radius: 4px;
   margin-right: 10px;
 }
 
+.user-card-container__selected {
+  border-color: #e16d54;
+}
+
+.user-card-text__selected {
+  color: #e16d54;
+}
+
 .user-card-image {
-  width: 96px;
-  height: 146px;
+  width: 92px;
+  height: 142px;
 }
 
 .user-card-text-container {

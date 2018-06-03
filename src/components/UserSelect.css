@@ -1,0 +1,18 @@
+.user-select-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+button,
+input[type='submit'],
+input[type='reset'] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}

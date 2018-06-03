@@ -15,16 +15,19 @@ header {
   padding-bottom: 0.5rem;
   text-align: center;
   font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: white;
-  font-family: 'Germania One';
-  letter-spacing: 4px;
-  text-shadow: 4px 4px 0 #e16d54;
+  margin-bottom: 1rem;
 }
 
 header img {
   width: 20rem;
+}
+
+.title-text {
+  font-weight: bold;
+  color: white;
+  font-family: 'Germania One';
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 #e16d54;
 }
 
 h1 {
