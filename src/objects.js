@@ -20,6 +20,7 @@ const userPropTypesShape = PropTypes.shape({
   cards: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])),
   isDead: PropTypes.bool,
   isTermLimited: PropTypes.bool,
+  roleImage: PropTypes.number,
 });
 
 const gameStagePropTypes = PropTypes.oneOf([

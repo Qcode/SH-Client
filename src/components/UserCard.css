@@ -1,0 +1,22 @@
+.user-card-container {
+  width: 100px;
+  height: 150px;
+  position: relative;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.user-card-image {
+  width: 96px;
+  height: 146px;
+}
+
+.user-card-text-container {
+  position: absolute;
+  width: 100%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+}

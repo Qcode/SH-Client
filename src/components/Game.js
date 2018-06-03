@@ -9,16 +9,9 @@ import VetoForm from './VetoForm';
 import VetoRespond from './VetoRespond';
 import Memo from './Memo';
 import Score from './Score';
+import UserDisplay from './UserDisplay';
 import { userPropTypesShape, gameStagePropTypes } from '../objects';
-
-function stringClassification(property) {
-  switch (typeof property) {
-    case 'boolean':
-      return property.toString();
-    default:
-      return 'unknown';
-  }
-}
+import './Game.css';
 
 function getGameSize(userCount) {
   return {
@@ -35,12 +28,15 @@ function getGameSize(userCount) {
 function Game(props) {
   return (
     <div>
-      <Score
-        liberal={props.score.liberal}
-        fascist={props.score.fascist}
-        failedGovernments={props.failedGovernments}
-        gameSize={getGameSize(props.users.length + 1)}
-      />
+      <div className="game-top-board">
+        <Score
+          liberal={props.score.liberal}
+          fascist={props.score.fascist}
+          failedGovernments={props.failedGovernments}
+          gameSize={getGameSize(props.users.length + 1)}
+        />
+        <UserDisplay primaryUser={props.primaryUser} users={props.users} />
+      </div>
       {props.memos.length > 0 ? (
         <div>
           <h2>Memos: </h2>
@@ -65,9 +61,6 @@ function Game(props) {
           users={props.users}
         />
       ) : null}
-      <h2>You</h2>
-      {props.primaryUser.isPresident ? <p>You are president this round.</p> : null}
-      {props.primaryUser.isChancellor ? <p>You have been elected chancellor this round.</p> : null}
       {props.primaryUser.isPresident && props.gameStage === 'chooseChancellor' ? (
         <div>
           <p>Elect a chancellor using the form below.</p>
@@ -103,20 +96,6 @@ function Game(props) {
       props.primaryUser.cards ? (
         <CardSelect submitDiscardCard={props.submitDiscardCard} cards={props.primaryUser.cards} />
       ) : null}
-      <p>
-        User: {props.primaryUser.username}. Is liberal:{' '}
-        {stringClassification(props.primaryUser.isLiberal)}. Is hitler:{' '}
-        {stringClassification(props.primaryUser.isHitler)}
-      </p>
-      <h2>Other Users</h2>
-      {props.users.map(user => (
-        <p>
-          User: {user.username}. Is liberal: {stringClassification(user.isLiberal)}. Is hitler:
-          {stringClassification(user.isHitler)}.
-          {user.isPresident ? 'This user is president for this round' : null}
-          {user.isChancellor ? 'This user is chancellor for this round' : null}
-        </p>
-      ))}
     </div>
   );
 }
