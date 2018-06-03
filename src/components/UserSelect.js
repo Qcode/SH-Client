@@ -28,7 +28,20 @@ class UserSelect extends Component {
     return (
       <div className="user-select">
         <div className="user-select-cards">
-          {this.props.users.map(this.props.optionMapFunction)}
+          {this.props.users.map(user => (
+            <button
+              onClick={() => {
+                this.handleUserChange(user.id);
+              }}
+            >
+              <UserCard
+                role={getRoleFromUser(user)}
+                roleImage={user.roleImage}
+                username={user.username}
+                selected={user.id === this.state.userSelected}
+              />
+            </button>
+          ))}
         </div>
         <Button onClick={this.submitForm} variant="outlined" color="primary">
           {`${this.props.submitPrefix} ${
@@ -45,27 +58,12 @@ UserSelect.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   submitPrefix: PropTypes.string,
   submitSuffix: PropTypes.string,
-  optionMapFunction: PropTypes.func,
   getFirstUser: PropTypes.func,
 };
 
 UserSelect.defaultProps = {
   submitPrefix: 'Submit',
   submitSuffix: '',
-  optionMapFunction: user => (
-    <button
-      onClick={() => {
-        this.handleUserChange(user.id);
-      }}
-    >
-      <UserCard
-        role={getRoleFromUser(user)}
-        roleImage={user.roleImage}
-        username={user.username}
-        selected={user.id === this.state.userSelected}
-      />
-    </button>
-  ),
   getFirstUser: users => users[0],
 };
 
