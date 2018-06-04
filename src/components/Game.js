@@ -30,6 +30,15 @@ function Game(props) {
           voteForChancellor={props.voteForChancellor}
         />
       ) : null}
+      {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
+        (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
+      props.primaryUser.cards ? (
+        <CardSelect
+          gameStage={props.gameStage}
+          submitDiscardCard={props.submitDiscardCard}
+          cards={props.primaryUser.cards}
+        />
+      ) : null}
       <div className="game-board">
         <Score
           liberal={props.score.liberal}
@@ -62,11 +71,6 @@ function Game(props) {
       props.primaryUser.isChancellor &&
       props.score.fascist === 5 ? (
         <VetoForm submitVetoRequest={props.submitVetoRequest} />
-      ) : null}
-      {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
-        (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
-      props.primaryUser.cards ? (
-        <CardSelect submitDiscardCard={props.submitDiscardCard} cards={props.primaryUser.cards} />
       ) : null}
     </div>
   );
