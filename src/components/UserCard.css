@@ -12,6 +12,10 @@
   border-color: #e16d54;
 }
 
+.user-card-container__disabled {
+  border-color: #323232;
+}
+
 .user-card-text__selected {
   color: #e16d54;
 }
@@ -27,4 +31,16 @@
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   bottom: 0;
+}
+
+.user-card-disabled-overlay {
+  color: white;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: rgba(50, 50, 50, 0.8);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

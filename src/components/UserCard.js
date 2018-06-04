@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import images from '../images';
 import './UserCard.css';
 
@@ -18,23 +19,56 @@ function UserCard(props) {
     hitler: 'Hitler role image',
   };
 
-  const appendSelected = className =>
-    (props.selected ? `${className} ${className}__selected` : className);
-
   return (
-    <div className={appendSelected('user-card-container')}>
+    <div
+      className={classNames('user-card-container', {
+        'user-card-container__selected': props.selected,
+        'user-card-container__disabled': props.disabled,
+      })}
+    >
       <img
         className="user-card-image"
         alt={getAltFromRole[props.role]}
         src={getImageFromRole[props.role]()}
       />
+      {props.disabled && (
+        <div className="user-card-disabled-overlay">
+          <p>{props.disabledText}</p>
+        </div>
+      )}
       <div className="user-card-text-container">
-        <p className={appendSelected('user-card-text')}>
+        <p
+          className={classNames('user-card-text', {
+            'user-card-text__selected': props.selected,
+          })}
+        >
           {props.voteCast !== 'uncast' && props.voteCast}
         </p>
-        {props.isPresident && <p className={appendSelected('user-card-text')}>President</p>}
-        {props.isChancellor && <p className={appendSelected('user-card-text')}>Chancellor</p>}
-        <p className={appendSelected('user-card-text')}>{props.username}</p>
+        {props.isPresident && (
+          <p
+            className={classNames('user-card-text', {
+              'user-card-text__selected': props.selected,
+            })}
+          >
+            President
+          </p>
+        )}
+        {props.isChancellor && (
+          <p
+            className={classNames('user-card-text', {
+              'user-card-text__selected': props.selected,
+            })}
+          >
+            Chancellor
+          </p>
+        )}
+        <p
+          className={classNames('user-card-text', {
+            'user-card-text__selected': props.selected,
+          })}
+        >
+          {props.username}
+        </p>
       </div>
     </div>
   );
@@ -48,6 +82,8 @@ UserCard.propTypes = {
   isChancellor: PropTypes.bool,
   username: PropTypes.string.isRequired,
   selected: PropTypes.bool,
+  disabledText: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 UserCard.defaultProps = {
@@ -56,6 +92,8 @@ UserCard.defaultProps = {
   isPresident: false,
   isChancellor: false,
   selected: false,
+  disabledText: 'Disabled',
+  disabled: false,
 };
 
 export default UserCard;

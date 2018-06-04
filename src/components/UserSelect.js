@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
 import UserCard from './UserCard';
 import { getRoleFromUser } from '../utils';
 import { userPropTypesShape } from '../objects';
@@ -30,11 +31,18 @@ class UserSelect extends Component {
         <div className="user-select-cards">
           {this.props.users.map(user => (
             <button
+              className={classNames({
+                'user-select-button__disabled': this.props.checkDisabled(user),
+              })}
               onClick={() => {
-                this.handleUserChange(user.id);
+                if (!this.props.checkDisabled(user)) {
+                  this.handleUserChange(user.id);
+                }
               }}
             >
               <UserCard
+                disabled={this.props.checkDisabled(user)}
+                disabledText={this.props.disabledText}
                 role={getRoleFromUser(user)}
                 roleImage={user.roleImage}
                 username={user.username}
@@ -59,12 +67,16 @@ UserSelect.propTypes = {
   submitPrefix: PropTypes.string,
   submitSuffix: PropTypes.string,
   getFirstUser: PropTypes.func,
+  checkDisabled: PropTypes.func,
+  disabledText: PropTypes.string,
 };
 
 UserSelect.defaultProps = {
   submitPrefix: 'Submit',
   submitSuffix: '',
   getFirstUser: users => users[0],
+  checkDisabled: () => false,
+  disabledText: 'Disabled',
 };
 
 export default UserSelect;

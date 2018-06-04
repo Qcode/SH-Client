@@ -5,6 +5,10 @@
   margin-bottom: 1rem;
 }
 
+.user-select-button__disabled {
+  cursor: auto;
+}
+
 button,
 input[type='submit'],
 input[type='reset'] {

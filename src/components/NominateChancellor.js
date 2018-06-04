@@ -13,7 +13,8 @@ function NominateChancellor(props) {
         submitSuffix="as Chancellor"
         users={props.users}
         onSubmit={props.submitChancellor}
-        disableTermLimits
+        checkDisabled={user => user.isTermLimited}
+        disabledText="Term Limited"
         getFirstUser={users => users.find(user => !user.isTermLimited)}
       />
     </div>
