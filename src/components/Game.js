@@ -16,29 +16,40 @@ import { getGameSize } from '../utils';
 function Game(props) {
   return (
     <div className="game">
-      {props.primaryUser.isPresident &&
-        props.gameStage === 'chooseChancellor' && (
-          <NominateChancellor submitChancellor={props.submitChancellor} users={props.users} />
-        )}
-      {props.gameStage === 'voteForChancellor' ? (
-        <ChancellorVote
-          nominee={
-            props.primaryUser.isChancellor
-              ? props.primaryUser
-              : props.users.filter(user => user.isChancellor)[0]
-          }
-          voteForChancellor={props.voteForChancellor}
-        />
-      ) : null}
-      {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
-        (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
-      props.primaryUser.cards ? (
-        <CardSelect
-          gameStage={props.gameStage}
-          submitDiscardCard={props.submitDiscardCard}
-          cards={props.primaryUser.cards}
-        />
-      ) : null}
+      <div className="game-action">
+        {props.primaryUser.isPresident &&
+          props.gameStage === 'chooseChancellor' && (
+            <NominateChancellor submitChancellor={props.submitChancellor} users={props.users} />
+          )}
+        {props.gameStage === 'voteForChancellor' ? (
+          <ChancellorVote
+            nominee={
+              props.primaryUser.isChancellor
+                ? props.primaryUser
+                : props.users.filter(user => user.isChancellor)[0]
+            }
+            voteForChancellor={props.voteForChancellor}
+          />
+        ) : null}
+        {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
+          (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
+        props.primaryUser.cards ? (
+          <CardSelect
+            gameStage={props.gameStage}
+            submitDiscardCard={props.submitDiscardCard}
+            cards={props.primaryUser.cards}
+          />
+        ) : null}
+        {props.gameStage === 'fascistPower' &&
+          props.primaryUser.isPresident && (
+            <FascistPower
+              enactFascistPower={props.enactFascistPower}
+              type={props.fascistPower}
+              info={props.fascistInfo}
+              users={props.users}
+            />
+          )}
+      </div>
       <div className="game-board">
         <Score
           liberal={props.score.liberal}
@@ -53,14 +64,6 @@ function Game(props) {
           <h2>Memos: </h2>
           <Memo dismissMemo={props.dismissMemo} memo={props.memos[0]} />
         </div>
-      ) : null}
-      {props.gameStage === 'fascistPower' && props.primaryUser.isPresident ? (
-        <FascistPower
-          enactFascistPower={props.enactFascistPower}
-          type={props.fascistPower}
-          info={props.fascistInfo}
-          users={props.users}
-        />
       ) : null}
       {props.gameStage === 'chancellorPolicySelect' &&
         props.primaryUser.isPresident &&

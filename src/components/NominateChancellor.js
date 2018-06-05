@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserSelect from './UserSelect';
 import { userPropTypesShape } from '../objects';
-import './NominateChancellor.css';
 
 function NominateChancellor(props) {
   return (

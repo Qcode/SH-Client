@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import images from '../images';
 import { gameStagePropTypes } from '../objects';
-import './CardSelect.css';
 
 class CardSelect extends Component {
   constructor(props) {
@@ -41,14 +40,11 @@ class CardSelect extends Component {
         <p>{`Pick your policy to ${getDiscardVerb()}`}</p>
         <div className="card-select-cards-container">
           {this.props.cards.map((card, index) => (
-            <button className="card-select-card-container" onClick={() => this.selectCard(index)}>
+            <button className="card-display-card-container" onClick={() => this.selectCard(index)}>
               <img
                 alt={altOptions[card]}
-                className={
-                  index === this.state.cardToDiscard
-                    ? 'card-select-card-image card-select-card-image__selected'
-                    : 'card-select-card-image'
-                }
+                className="card-display-card-image"
+                style={{ 'border-color': index === this.state.cardToDiscard ? '#e16d54' : 'white' }}
                 src={card === 'liberal' ? images.policies.liberal : images.policies.fascist}
               />
             </button>
