@@ -54,3 +54,8 @@ p {
   border: 4px solid white;
   border-radius: 8px;
 }
+
+.App {
+  padding-left: 10px;
+  padding-right: 10px;
+}

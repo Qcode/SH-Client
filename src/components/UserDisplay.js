@@ -7,7 +7,7 @@ import './UserDisplay.css';
 
 function UserDisplay(props) {
   return (
-    <div className="user-display">
+    <div className={!props.center ? 'user-display' : 'user-display-center'}>
       <UserCard
         role={getRoleFromUser(props.primaryUser)}
         roleImage={props.primaryUser.roleImage}
@@ -35,6 +35,11 @@ function UserDisplay(props) {
 UserDisplay.propTypes = {
   primaryUser: userPropTypesShape.isRequired,
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
+  center: PropTypes.bool,
+};
+
+UserDisplay.defaultProps = {
+  center: false,
 };
 
 export default UserDisplay;
