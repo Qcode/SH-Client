@@ -20,6 +20,8 @@ import hitlerRole from './assets/hitler.png';
 import unknownRole from './assets/unknown.png';
 import jaVote from './assets/ja.png';
 import neinVote from './assets/nein.png';
+import liberalAffiliation from './assets/liberal-affiliation.png';
+import fascistAffiliation from './assets/fascist-affiliation.png';
 
 export default {
   liberalBoards: {
@@ -57,5 +59,9 @@ export default {
   votes: {
     ja: jaVote,
     nein: neinVote,
+  },
+  affiliations: {
+    liberal: liberalAffiliation,
+    fascist: fascistAffiliation,
   },
 };

@@ -66,9 +66,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      dismissMemo: () => {
-        dispatch({ type: DISMISS_MEMO });
-      },
+      dismissMemo: () => ({ type: DISMISS_MEMO }),
     },
     dispatch,
   );

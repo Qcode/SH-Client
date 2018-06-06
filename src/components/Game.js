@@ -60,10 +60,11 @@ function Game(props) {
         <UserDisplay primaryUser={props.primaryUser} users={props.users} />
       </div>
       {props.memos.length > 0 ? (
-        <div>
-          <h2>Memos: </h2>
-          <Memo dismissMemo={props.dismissMemo} memo={props.memos[0]} />
-        </div>
+        <Memo
+          users={props.users.concat([props.primaryUser])}
+          dismissMemo={props.dismissMemo}
+          memo={props.memos[0]}
+        />
       ) : null}
       {props.gameStage === 'chancellorPolicySelect' &&
         props.primaryUser.isPresident &&
