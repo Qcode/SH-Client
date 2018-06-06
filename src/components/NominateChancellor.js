@@ -12,7 +12,7 @@ function NominateChancellor(props) {
         submitSuffix="as Chancellor"
         users={props.users}
         onSubmit={props.submitChancellor}
-        checkDisabled={user => user.isTermLimited}
+        checkDisabled={user => user.isTermLimited || user.isDead}
         disabledText="Term Limited"
         getFirstUser={users => users.find(user => !user.isTermLimited)}
       />

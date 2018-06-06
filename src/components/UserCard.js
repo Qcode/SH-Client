@@ -23,7 +23,7 @@ function UserCard(props) {
     <div
       className={classNames('user-card-container', {
         'user-card-container__selected': props.selected,
-        'user-card-container__disabled': props.disabled,
+        'user-card-container__disabled': props.disabled || props.isDead,
       })}
     >
       <img
@@ -31,11 +31,17 @@ function UserCard(props) {
         alt={getAltFromRole[props.role]}
         src={getImageFromRole[props.role]()}
       />
-      {props.disabled && (
-        <div className="user-card-disabled-overlay">
-          <p>{props.disabledText}</p>
+      {props.isDead && (
+        <div className="user-card-dead-overlay user-card-overlay">
+          <p>Executed</p>
         </div>
       )}
+      {props.disabled &&
+        !props.isDead && (
+          <div className="user-card-disabled-overlay user-card-overlay">
+            <p>{props.disabledText}</p>
+          </div>
+        )}
       <div className="user-card-text-container">
         <p
           className={classNames('user-card-text', {
@@ -84,6 +90,7 @@ UserCard.propTypes = {
   selected: PropTypes.bool,
   disabledText: PropTypes.string,
   disabled: PropTypes.bool,
+  isDead: PropTypes.bool,
 };
 
 UserCard.defaultProps = {
@@ -94,6 +101,7 @@ UserCard.defaultProps = {
   selected: false,
   disabledText: 'Disabled',
   disabled: false,
+  isDead: false,
 };
 
 export default UserCard;

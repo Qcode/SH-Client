@@ -55,6 +55,7 @@ class Memo extends Component {
           username={userForCard.username}
           isPresident={userForCard.isPresident}
           isChancellor={userForCard.isChancellor}
+          isDead={userForCard.isDead}
         />
       );
     }

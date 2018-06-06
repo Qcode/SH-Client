@@ -47,6 +47,7 @@ class UserSelect extends Component {
                 roleImage={user.roleImage}
                 username={user.username}
                 selected={user.id === this.state.userSelected}
+                isDead={user.isDead}
               />
             </button>
           ))}
@@ -75,7 +76,7 @@ UserSelect.defaultProps = {
   submitPrefix: 'Submit',
   submitSuffix: '',
   getFirstUser: users => users[0],
-  checkDisabled: () => false,
+  checkDisabled: user => user.isDead,
   disabledText: 'Disabled',
 };
 

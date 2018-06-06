@@ -15,18 +15,6 @@ import { userPropTypesShape, gameStagePropTypes } from '../objects';
 import { DISMISS_MEMO } from '../reducers/eventTypes';
 
 function GameContainer(props) {
-  if (props.primaryUser.isDead) {
-    return (
-      <div>
-        <h1>You are dead.</h1>
-        <p>You have been executed by the president.</p>
-        <p>
-          Reminder: it is against the rules to announce your party affiliation after being executed
-        </p>
-        <p>Please wait until the end of the game to reveal your affiliation. Thank you.</p>
-      </div>
-    );
-  }
   return (
     <Game
       gameStage={props.gameStage}
@@ -52,7 +40,7 @@ function mapStateToProps(state) {
   return {
     primaryUser: state.users[state.primaryUserId],
     users: Object.keys(state.users)
-      .filter(key => key !== state.primaryUserId && !state.users[key].isDead)
+      .filter(key => key !== state.primaryUserId)
       .map(user => state.users[user]),
     gameStage: state.gameStage,
     score: state.score,

@@ -15,6 +15,7 @@ function UserDisplay(props) {
         isPresident={props.primaryUser.isPresident}
         isChancellor={props.primaryUser.isChancellor}
         voteCast={voteToString(props.primaryUser.voteCast)}
+        isDead={props.primaryUser.isDead}
       />
       {props.users.map(user => (
         <UserCard
@@ -24,6 +25,7 @@ function UserDisplay(props) {
           isPresident={user.isPresident}
           isChancellor={user.isChancellor}
           voteCast={voteToString(user.voteCast)}
+          isDead={user.isDead}
         />
       ))}
     </div>
