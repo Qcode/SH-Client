@@ -14,8 +14,26 @@ import './Game.css';
 import { getGameSize } from '../utils';
 
 function Game(props) {
+  const gameStageTitle = {
+    chooseChancellor: 'President is choosing a chancellor...',
+    presidentPolicySelect: 'President is choosing a policy to discard...',
+    chancellorPolicySelect: 'Chancellor is choosing a policy to play...',
+    fascistPower: 'President must enact their fascist power...',
+  };
+
+  const displayStatus = {
+    chooseChancellor: primaryUser => !primaryUser.isPresident,
+    voteForChancellor: () => false,
+    presidentPolicySelect: primaryUser => !primaryUser.isPresident,
+    chancellorPolicySelect: primaryUser => !primaryUser.isChancellor,
+    fascistPolicy: primaryUser => !primaryUser.isPresident,
+  };
+
   return (
     <div className="game">
+      {displayStatus[props.gameStage](props.primaryUser) && (
+        <h2 style={{ 'text-align': 'center' }}>{gameStageTitle[props.gameStage]}</h2>
+      )}
       {!props.primaryUser.isDead && (
         <div className="game-action">
           {props.primaryUser.isPresident &&
