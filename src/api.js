@@ -8,17 +8,25 @@ import {
   ENACT_FASCIST_POWER,
   SUBMIT_VETO_REQUEST,
   RESPOND_VETO_REQUEST,
+  LOGIN_ERROR,
 } from './reducers/eventTypes';
 import { socket } from './objects';
 
 function connectToServer(username) {
   return (dispatch) => {
     socket.open();
-    socket.emit(JOIN_GAME, { username }, () => {
-      dispatch({
-        type: SET_GAME_STATE,
-        newState: 'lobby',
-      });
+    socket.emit(JOIN_GAME, { username }, (returnValue) => {
+      if (returnValue === true) {
+        dispatch({
+          type: SET_GAME_STATE,
+          newState: 'lobby',
+        });
+      } else {
+        dispatch({
+          type: LOGIN_ERROR,
+          error: returnValue,
+        });
+      }
     });
   };
 }

@@ -10,6 +10,7 @@ import {
   GET_MEMO,
   DISMISS_MEMO,
   SYNC_FAILED_GOVERNMENTS,
+  LOGIN_ERROR,
 } from './eventTypes';
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   memoQueue: [],
   failedGovernments: 0,
   receivedVetoRequest: false,
+  loginError: '',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -74,6 +76,9 @@ const rootReducer = (state = initialState, action) => {
     }
     case SYNC_FAILED_GOVERNMENTS: {
       return { ...state, failedGovernments: action.failedGovernments };
+    }
+    case LOGIN_ERROR: {
+      return { ...state, loginError: action.error };
     }
     default:
       return state;
