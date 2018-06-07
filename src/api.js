@@ -13,6 +13,7 @@ import { socket } from './objects';
 
 function connectToServer(username) {
   return (dispatch) => {
+    socket.open();
     socket.emit(JOIN_GAME, { username }, () => {
       dispatch({
         type: SET_GAME_STATE,
