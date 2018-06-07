@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GameOver.css';
 import UserDisplay from './UserDisplay';
-import { userPropTypesShape } from '../objects';
+import { userPropTypesShape, memoPropTypesShape } from '../objects';
+import Memo from './Memo';
 
 function GameOver(props) {
   const titles = {
@@ -25,6 +26,13 @@ function GameOver(props) {
       <h1 className="title-text">{titles[props.reason]}</h1>
       <p>{explanations[props.reason]}</p>
       <UserDisplay center primaryUser={props.primaryUser} users={props.users} />
+      {props.memos.length > 0 ? (
+        <Memo
+          users={props.users.concat([props.primaryUser])}
+          dismissMemo={props.dismissMemo}
+          memo={props.memos[0]}
+        />
+      ) : null}
     </div>
   );
 }
@@ -34,6 +42,12 @@ GameOver.propTypes = {
     .isRequired,
   primaryUser: userPropTypesShape.isRequired,
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
+  dismissMemo: PropTypes.func.isRequired,
+  memos: PropTypes.arrayOf(memoPropTypesShape),
+};
+
+GameOver.defaultProps = {
+  memos: [],
 };
 
 export default GameOver;

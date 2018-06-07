@@ -11,7 +11,7 @@ import {
   submitVetoRequest,
   respondVetoRequest,
 } from '../api';
-import { userPropTypesShape, gameStagePropTypes } from '../objects';
+import { userPropTypesShape, gameStagePropTypes, memoPropTypesShape } from '../objects';
 import { DISMISS_MEMO } from '../reducers/eventTypes';
 
 function GameContainer(props) {
@@ -67,7 +67,7 @@ GameContainer.propTypes = {
   score: PropTypes.shape({ liberal: PropTypes.number, fascist: PropTypes.number }),
   fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
-  memos: PropTypes.arrayOf(PropTypes.string),
+  memos: PropTypes.arrayOf(memoPropTypesShape),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
 };

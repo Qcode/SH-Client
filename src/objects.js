@@ -31,4 +31,9 @@ const gameStagePropTypes = PropTypes.oneOf([
   'fascistPower',
 ]);
 
-export { socket, store, userPropTypesShape, gameStagePropTypes };
+const memoPropTypesShape = PropTypes.shape({
+  text: PropTypes.string,
+  graphics: PropTypes.arrayOf(PropTypes.string),
+});
+
+export { socket, store, userPropTypesShape, gameStagePropTypes, memoPropTypesShape };

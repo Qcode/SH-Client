@@ -9,7 +9,7 @@ import Memo from './Memo';
 import Score from './Score';
 import UserDisplay from './UserDisplay';
 import NominateChancellor from './NominateChancellor';
-import { userPropTypesShape, gameStagePropTypes } from '../objects';
+import { userPropTypesShape, gameStagePropTypes, memoPropTypesShape } from '../objects';
 import './Game.css';
 import { getGameSize } from '../utils';
 
@@ -50,6 +50,16 @@ function Game(props) {
                 users={props.users}
               />
             )}
+          {props.gameStage === 'chancellorPolicySelect' &&
+            props.primaryUser.isPresident &&
+            props.users.filter(user => user.isChancellor)[0].usedVeto && (
+              <VetoRespond respondVetoRequest={props.respondVetoRequest} />
+            )}
+          {props.gameStage === 'chancellorPolicySelect' &&
+          props.primaryUser.isChancellor &&
+          props.score.fascist === 5 ? (
+            <VetoForm submitVetoRequest={props.submitVetoRequest} />
+          ) : null}
         </div>
       )}
       <div className="game-board">
@@ -68,16 +78,6 @@ function Game(props) {
           memo={props.memos[0]}
         />
       ) : null}
-      {props.gameStage === 'chancellorPolicySelect' &&
-        props.primaryUser.isPresident &&
-        props.users.filter(user => user.isChancellor)[0].usedVeto && (
-          <VetoRespond respondVetoRequest={props.respondVetoRequest} />
-        )}
-      {props.gameStage === 'chancellorPolicySelect' &&
-      props.primaryUser.isChancellor &&
-      props.score.fascist === 5 ? (
-        <VetoForm submitVetoRequest={props.submitVetoRequest} />
-      ) : null}
     </div>
   );
 }
@@ -93,7 +93,7 @@ Game.propTypes = {
   enactFascistPower: PropTypes.func.isRequired,
   fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
-  memos: PropTypes.arrayOf(PropTypes.string),
+  memos: PropTypes.arrayOf(memoPropTypesShape),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
   submitVetoRequest: PropTypes.func.isRequired,

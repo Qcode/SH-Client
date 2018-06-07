@@ -4,7 +4,7 @@ import { Button, Modal } from '@material-ui/core';
 import images from '../images';
 import { getRoleFromUser } from '../utils';
 import UserCard from './UserCard';
-import { userPropTypesShape } from '../objects';
+import { userPropTypesShape, memoPropTypesShape } from '../objects';
 import './Memo.css';
 
 class Memo extends Component {
@@ -82,7 +82,7 @@ class Memo extends Component {
 }
 
 Memo.propTypes = {
-  memo: PropTypes.string.isRequired,
+  memo: memoPropTypesShape.isRequired,
   dismissMemo: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
 };

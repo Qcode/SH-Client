@@ -59,3 +59,15 @@ p {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.veto-form {
+  margin-top: 20px;
+  border: 4px solid #383633;
+  border-radius: 4px;
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  box-shadow: 4px 4px 0px #e16d54;
+}
