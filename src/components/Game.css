@@ -1,0 +1,14 @@
+.game-board {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.game-action {
+  margin: auto;
+  width: 95%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}

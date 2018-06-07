@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1bb75;
+  margin: 0;
+  font-family: Raleway;
+  color: #383633;
+}
+
+header {
+  background-color: #383633;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+header img {
+  width: 20rem;
+}
+
+.title-text {
+  font-weight: bold;
+  color: white;
+  font-family: 'Germania One';
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 #e16d54;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-display-card-container {
+  width: 7%;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.card-display-card-image {
+  width: 100%;
+  border: 4px solid white;
+  border-radius: 8px;
+}
+
+.App {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.veto-form {
+  margin-top: 20px;
+  border: 4px solid #383633;
+  border-radius: 4px;
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  box-shadow: 4px 4px 0px #e16d54;
+}
+
+.container {
+  width: 80%;
+  max-width: 500px;
+  border: 2px solid #383633;
+  border-radius: 0.5rem;
+  margin: auto;
+  padding: 1rem;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.container__text {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}

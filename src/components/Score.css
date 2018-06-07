@@ -1,0 +1,63 @@
+.score-container {
+  max-width: 600px;
+  display: inline-block;
+}
+
+.score-board {
+  width: 100%;
+  max-width: 600px;
+}
+
+.score-board-container {
+  position: relative;
+}
+
+.score-card {
+  width: 11%;
+  position: absolute;
+  top: 24%;
+}
+
+.score-liberal-card-1 {
+  left: 15.5%;
+}
+
+.score-liberal-card-2 {
+  left: 30%;
+}
+
+.score-liberal-card-3 {
+  left: 44.5%;
+}
+
+.score-liberal-card-4 {
+  left: 59%;
+}
+
+.score-liberal-card-5 {
+  left: 73.9%;
+}
+
+.score-fascist-card-1 {
+  left: 8.5%;
+}
+
+.score-fascist-card-2 {
+  left: 22.9%;
+}
+
+.score-fascist-card-3 {
+  left: 37%;
+}
+
+.score-fascist-card-4 {
+  left: 51.9%;
+}
+
+.score-fascist-card-5 {
+  left: 66.3%;
+}
+
+.score-fascist-card-6 {
+  left: 80.9%;
+}

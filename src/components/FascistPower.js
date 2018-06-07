@@ -1,56 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import UserSelect from './UserSelect';
 import { userPropTypesShape } from '../objects';
+import images from '../images';
 
 function FascistPower(props) {
-  const titles = {
-    cardPeek: 'Card Peek',
-    kill: 'Execution time!',
-    inspect: "Inspect another player's party",
-    election: 'Special Election',
+  const subtitles = {
+    cardPeek: 'These are the next three cards in the draw pile.',
+    kill: 'Choose a player to execute.',
+    inspect: 'Choose a player to inspect their party.',
+    election: 'Choose a player to be the next President.',
   };
 
-  const bodies = {
-    cardPeek: 'These are the next three cards to be played',
-    kill: 'Choose a player to execute using the form below',
-    inspect: 'Choose a player to inspect using the form below',
-    election: 'Choose a player to be president next round',
-  };
-
-  const getResponses = {
-    cardPeek: () => '',
-  };
-
-  const submitForm = (event) => {
-    event.preventDefault();
-    props.enactFascistPower(getResponses[props.type]());
-  };
+  const altOptions = { liberal: 'Liberal policy', fascist: 'Fascist policy' };
 
   const forms = {
     cardPeek: (
-      <form onSubmit={submitForm}>
-        {props.info ? props.info.map(card => <span>|{card}|</span>) : null}
-        <input type="submit" value="Continue Game" />
-      </form>
+      <div>
+        <div>
+          {props.info &&
+            props.info.map(card => (
+              <div className="card-display-card-container">
+                <img
+                  alt={altOptions[card]}
+                  className="card-display-card-image"
+                  src={card === 'liberal' ? images.policies.liberal : images.policies.fascist}
+                />
+              </div>
+            ))}
+        </div>
+        <Button color="primary" variant="outlined" onClick={() => props.enactFascistPower()}>
+          Understood, Continue Game
+        </Button>
+      </div>
     ),
     kill: (
       <UserSelect
-        submitText="I formally execute this player."
+        submitPrefix="I formally execute"
         users={props.users}
         onSubmit={props.enactFascistPower}
       />
     ),
     inspect: (
       <UserSelect
-        submitText="Tell me this player's party"
+        submitPrefix="Inspect the party membership of"
         users={props.users}
         onSubmit={props.enactFascistPower}
       />
     ),
     election: (
       <UserSelect
-        submitText="Make this player as President next round"
+        submitPrefix="Elect"
+        submitSuffix="as President in a special election"
         users={props.users}
         onSubmit={props.enactFascistPower}
       />
@@ -59,9 +61,8 @@ function FascistPower(props) {
 
   return (
     <div>
-      <h2>Fascist Power</h2>
-      <p>{titles[props.type]}</p>
-      <p>{bodies[props.type]}</p>
+      <h1 className="title-text">Fascist Power</h1>
+      <p>{subtitles[props.type]}</p>
       {forms[props.type]}
     </div>
   );

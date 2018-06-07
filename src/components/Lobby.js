@@ -1,45 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import { userPropTypesShape } from '../objects';
 
-class Lobby extends Component {
-  constructor(props) {
-    super(props);
-    this.startGame = this.startGame.bind(this);
-  }
-
-  startGame(event) {
-    this.props.startGame();
-    event.preventDefault();
-  }
-
-  render() {
-    const primaryUserForm =
-      Object.keys(this.props.users).length >= 4 ? (
-        <form onSubmit={this.startGame}>
-          <input type="submit" value="Start Game" />
-        </form>
-      ) : (
-        <p>Need at least 5 users to start game</p>
-      );
-    return (
-      <div>
-        <h1>Lobby</h1>
-        <h2>You:</h2>
-        <p>
-          Name - {this.props.primaryUser.username}. Is Host:{' '}
-          {this.props.primaryUser.host.toString()}
-        </p>
-        <h2>Other users</h2>
-        {this.props.users.map(user => (
-          <p>
-            Name - {user.username}. Is Host: {user.host.toString()}
-          </p>
-        ))}
-        {this.props.primaryUser.host ? primaryUserForm : <p>Waiting for host to start game...</p>}
-      </div>
+function Lobby(props) {
+  const primaryUserForm =
+    Object.keys(props.users).length >= 4 ? (
+      <Button variant="outlined" color="primary" onClick={props.startGame}>
+        Start Game
+      </Button>
+    ) : (
+      <p>Need at least 5 users to start game</p>
     );
-  }
+  return (
+    <div className="container" style={{ 'text-align': 'center' }}>
+      <h1 className="title-text">Lobby</h1>
+      <h2>Users:</h2>
+      <p>You {props.primaryUser.host && ' - Host'}</p>
+      {props.users.map(user => (
+        <p>
+          {user.username} {user.host && ' - Host'}
+        </p>
+      ))}
+      {props.primaryUser.host ? primaryUserForm : <p>Waiting for host to start game...</p>}
+    </div>
+  );
 }
 
 Lobby.propTypes = {

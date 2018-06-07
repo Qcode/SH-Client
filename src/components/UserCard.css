@@ -1,0 +1,55 @@
+.user-card-container {
+  width: 100px;
+  height: 150px;
+  position: relative;
+  text-align: center;
+  border: 4px solid white;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.user-card-container__selected {
+  border-color: #e16d54;
+}
+
+.user-card-container__disabled {
+  border-color: #323232;
+}
+
+.user-card-text__selected {
+  color: #e16d54;
+}
+
+.user-card-image {
+  width: 92px;
+  height: 142px;
+}
+
+.user-card-text-container {
+  position: absolute;
+  width: 100%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+}
+
+.user-card-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.user-card-disabled-overlay {
+  background-color: rgba(50, 50, 50, 0.8);
+}
+
+.user-card-dead-overlay {
+  background-color: rgba(255, 109, 84, 0.8);
+}

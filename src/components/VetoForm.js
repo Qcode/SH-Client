@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 class VetoForm extends Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class VetoForm extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Veto Power</h2>
+      <div className="veto-form">
+        <h1 className="title-text">Veto Power</h1>
         {!this.state.submitted ? (
           <div>
             <p>Since there are 5 fascist policies passed, you have unlocked veto power</p>
@@ -26,9 +27,9 @@ class VetoForm extends Component {
               President
             </p>
             <p>Note that vetoing these policies will count as a failed government</p>
-            <button type="submit" onClick={this.handleSubmit}>
+            <Button variant="outlined" color="primary" onClick={this.handleSubmit}>
               Submit Veto Request
-            </button>
+            </Button>
           </div>
         ) : (
           <p>You have used your veto request.</p>

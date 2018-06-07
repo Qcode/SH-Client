@@ -1,107 +1,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserSelect from './UserSelect';
 import ChancellorVote from './ChancellorVote';
 import CardSelect from './CardSelect';
 import FascistPower from './FascistPower';
 import VetoForm from './VetoForm';
 import VetoRespond from './VetoRespond';
 import Memo from './Memo';
-import { userPropTypesShape, gameStagePropTypes } from '../objects';
-
-function stringClassification(property) {
-  switch (typeof property) {
-    case 'boolean':
-      return property.toString();
-    default:
-      return 'unknown';
-  }
-}
+import Score from './Score';
+import UserDisplay from './UserDisplay';
+import NominateChancellor from './NominateChancellor';
+import { userPropTypesShape, gameStagePropTypes, memoPropTypesShape } from '../objects';
+import './Game.css';
+import { getGameSize } from '../utils';
 
 function Game(props) {
+  const gameStageTitle = {
+    chooseChancellor: 'President is choosing a chancellor...',
+    presidentPolicySelect: 'President is choosing a policy to discard...',
+    chancellorPolicySelect: 'Chancellor is choosing a policy to play...',
+    fascistPower: 'President must enact their fascist power...',
+  };
+
+  const displayStatus = {
+    chooseChancellor: primaryUser => !primaryUser.isPresident,
+    voteForChancellor: () => false,
+    presidentPolicySelect: primaryUser => !primaryUser.isPresident,
+    chancellorPolicySelect: primaryUser => !primaryUser.isChancellor,
+    fascistPolicy: primaryUser => !primaryUser.isPresident,
+  };
+
   return (
-    <div>
-      <h1>Game - {props.gameStage}</h1>
-      <h2>Score</h2>
-      <p>Liberals: {props.score.liberal}</p>
-      <p>Fascists: {props.score.fascist}</p>
-      <p>Failed Governments: {props.failedGovernments}/3</p>
+    <div className="game">
+      {displayStatus[props.gameStage](props.primaryUser) && (
+        <h2 style={{ 'text-align': 'center' }}>{gameStageTitle[props.gameStage]}</h2>
+      )}
+      {!props.primaryUser.isDead && (
+        <div className="game-action">
+          {props.primaryUser.isPresident &&
+            props.gameStage === 'chooseChancellor' && (
+              <NominateChancellor submitChancellor={props.submitChancellor} users={props.users} />
+            )}
+          {props.gameStage === 'voteForChancellor' ? (
+            <ChancellorVote
+              nominee={
+                props.primaryUser.isChancellor
+                  ? props.primaryUser
+                  : props.users.filter(user => user.isChancellor)[0]
+              }
+              voteForChancellor={props.voteForChancellor}
+            />
+          ) : null}
+          {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
+            (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
+          props.primaryUser.cards ? (
+            <CardSelect
+              gameStage={props.gameStage}
+              submitDiscardCard={props.submitDiscardCard}
+              cards={props.primaryUser.cards}
+            />
+          ) : null}
+          {props.gameStage === 'fascistPower' &&
+            props.primaryUser.isPresident && (
+              <FascistPower
+                enactFascistPower={props.enactFascistPower}
+                type={props.fascistPower}
+                info={props.fascistInfo}
+                users={props.users}
+              />
+            )}
+          {props.gameStage === 'chancellorPolicySelect' &&
+            props.primaryUser.isPresident &&
+            props.users.filter(user => user.isChancellor)[0].usedVeto && (
+              <VetoRespond respondVetoRequest={props.respondVetoRequest} />
+            )}
+          {props.gameStage === 'chancellorPolicySelect' &&
+          props.primaryUser.isChancellor &&
+          props.score.fascist === 5 ? (
+            <VetoForm submitVetoRequest={props.submitVetoRequest} />
+          ) : null}
+        </div>
+      )}
+      <div className="game-board">
+        <Score
+          liberal={props.score.liberal}
+          fascist={props.score.fascist}
+          failedGovernments={props.failedGovernments}
+          gameSize={getGameSize(props.users.length + 1)}
+        />
+        <UserDisplay primaryUser={props.primaryUser} users={props.users} />
+      </div>
       {props.memos.length > 0 ? (
-        <div>
-          <h2>Memos: </h2>
-          <Memo dismissMemo={props.dismissMemo} memo={props.memos[0]} />
-        </div>
-      ) : null}
-      {props.gameStage === 'voteForChancellor' ? (
-        <ChancellorVote
-          nominee={
-            props.primaryUser.isChancellor
-              ? props.primaryUser
-              : props.users.filter(user => user.isChancellor)[0]
-          }
-          voteForChancellor={props.voteForChancellor}
+        <Memo
+          users={props.users.concat([props.primaryUser])}
+          dismissMemo={props.dismissMemo}
+          memo={props.memos[0]}
         />
       ) : null}
-      {props.gameStage === 'fascistPower' && props.primaryUser.isPresident ? (
-        <FascistPower
-          enactFascistPower={props.enactFascistPower}
-          type={props.fascistPower}
-          info={props.fascistInfo}
-          users={props.users}
-        />
-      ) : null}
-      <h2>You</h2>
-      {props.primaryUser.isPresident ? <p>You are president this round.</p> : null}
-      {props.primaryUser.isChancellor ? <p>You have been elected chancellor this round.</p> : null}
-      {props.primaryUser.isPresident && props.gameStage === 'chooseChancellor' ? (
-        <div>
-          <p>Elect a chancellor using the form below.</p>
-          <UserSelect
-            submitText="Select Chancellor"
-            users={props.users}
-            onSubmit={props.submitChancellor}
-            optionMapFunction={user =>
-              (!user.isTermLimited ? (
-                <option value={user.id}>{user.username}</option>
-              ) : (
-                <option disabled value={user.id}>
-                  {user.username} - term limited
-                </option>
-              ))
-            }
-            getFirstUser={users => users.find(user => !user.isTermLimited)}
-          />
-        </div>
-      ) : null}
-      {props.gameStage === 'chancellorPolicySelect' &&
-        props.primaryUser.isPresident &&
-        props.users.filter(user => user.isChancellor)[0].usedVeto && (
-          <VetoRespond respondVetoRequest={props.respondVetoRequest} />
-        )}
-      {props.gameStage === 'chancellorPolicySelect' &&
-      props.primaryUser.isChancellor &&
-      props.score.fascist === 5 ? (
-        <VetoForm submitVetoRequest={props.submitVetoRequest} />
-      ) : null}
-      {((props.gameStage === 'presidentPolicySelect' && props.primaryUser.isPresident) ||
-        (props.gameStage === 'chancellorPolicySelect' && props.primaryUser.isChancellor)) &&
-      props.primaryUser.cards ? (
-        <CardSelect submitDiscardCard={props.submitDiscardCard} cards={props.primaryUser.cards} />
-      ) : null}
-      <p>
-        User: {props.primaryUser.username}. Is liberal:{' '}
-        {stringClassification(props.primaryUser.isLiberal)}. Is hitler:{' '}
-        {stringClassification(props.primaryUser.isHitler)}
-      </p>
-      <h2>Other Users</h2>
-      {props.users.map(user => (
-        <p>
-          User: {user.username}. Is liberal: {stringClassification(user.isLiberal)}. Is hitler:
-          {stringClassification(user.isHitler)}.
-          {user.isPresident ? 'This user is president for this round' : null}
-          {user.isChancellor ? 'This user is chancellor for this round' : null}
-        </p>
-      ))}
     </div>
   );
 }
@@ -117,7 +111,7 @@ Game.propTypes = {
   enactFascistPower: PropTypes.func.isRequired,
   fascistPower: PropTypes.oneOf(['cardPeek']).isRequired,
   fascistInfo: PropTypes.arrayOf(PropTypes.oneOf(['liberal', 'fascist'])).isRequired,
-  memos: PropTypes.arrayOf(PropTypes.string),
+  memos: PropTypes.arrayOf(memoPropTypesShape),
   dismissMemo: PropTypes.func.isRequired,
   failedGovernments: PropTypes.number,
   submitVetoRequest: PropTypes.func.isRequired,

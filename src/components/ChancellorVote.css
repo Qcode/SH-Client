@@ -1,0 +1,20 @@
+.chancellor-vote-button {
+  min-width: 100px;
+  width: 20%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.chancellor-vote-image {
+  width: 100%;
+  border: 4px solid white;
+  border-radius: 8px;
+}
+
+.chancellor-vote-image__selected {
+  border-color: #e16d54;
+}
+
+.chancellor-vote-options-container {
+  margin-bottom: 1rem;
+}
