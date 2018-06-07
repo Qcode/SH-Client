@@ -4,7 +4,10 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-const socket = io('http://localhost:8080');
+const socket = io('http://localhost:8080', {
+  autoConnect: false,
+});
+
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 window.store = store;
 
