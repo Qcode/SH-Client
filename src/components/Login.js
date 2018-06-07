@@ -16,7 +16,11 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    this.props.connectToServer(this.state.username);
+    if (this.state.username !== '') {
+      this.props.connectToServer(this.state.username);
+    } else {
+      this.props.rejectUsername('No Username');
+    }
   }
 
   render() {
@@ -27,6 +31,7 @@ class Login extends Component {
         <div className="container__text">
           <TextField onChange={this.handleUsernameChange} placeholder="My Username" />
         </div>
+        {this.props.loginError !== '' && <p className="error">Error: {this.props.loginError}</p>}
         <div>
           <Button variant="outlined" color="primary" onClick={this.handleSubmit}>
             Join Game
@@ -39,6 +44,12 @@ class Login extends Component {
 
 Login.propTypes = {
   connectToServer: PropTypes.func.isRequired,
+  rejectUsername: PropTypes.func.isRequired,
+  loginError: PropTypes.string,
+};
+
+Login.defaultProps = {
+  loginError: '',
 };
 
 export default Login;
