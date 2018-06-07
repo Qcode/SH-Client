@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, TextField } from '@material-ui/core';
-import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -22,10 +21,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-container">
-        <h1>Join Game</h1>
+      <div className="container">
+        <h1 className="title-text">Join Game</h1>
         <p>Please enter a username</p>
-        <div className="login-container__text">
+        <div className="container__text">
           <TextField onChange={this.handleUsernameChange} placeholder="My Username" />
         </div>
         <div>

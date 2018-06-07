@@ -13,16 +13,13 @@ function Lobby(props) {
       <p>Need at least 5 users to start game</p>
     );
   return (
-    <div>
-      <h1>Lobby</h1>
-      <h2>You:</h2>
-      <p>
-        Name - {props.primaryUser.username}. Is Host: {props.primaryUser.host.toString()}
-      </p>
-      <h2>Other users</h2>
+    <div className="container" style={{ 'text-align': 'center' }}>
+      <h1 className="title-text">Lobby</h1>
+      <h2>Users:</h2>
+      <p>You {props.primaryUser.host && ' - Host'}</p>
       {props.users.map(user => (
         <p>
-          Name - {user.username}. Is Host: {user.host.toString()}
+          {user.username} {user.host && ' - Host'}
         </p>
       ))}
       {props.primaryUser.host ? primaryUserForm : <p>Waiting for host to start game...</p>}

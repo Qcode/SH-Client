@@ -71,3 +71,21 @@ p {
   padding-bottom: 20px;
   box-shadow: 4px 4px 0px #e16d54;
 }
+
+.container {
+  width: 80%;
+  max-width: 500px;
+  border: 2px solid #383633;
+  border-radius: 0.5rem;
+  margin: auto;
+  padding: 1rem;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.container__text {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
