@@ -9,6 +9,7 @@ import {
   SUBMIT_VETO_REQUEST,
   RESPOND_VETO_REQUEST,
   LOGIN_ERROR,
+  CLOSE_GAME,
 } from './reducers/eventTypes';
 import { socket } from './objects';
 
@@ -59,6 +60,10 @@ function respondVetoRequest(decision) {
   socket.emit(RESPOND_VETO_REQUEST, decision);
 }
 
+function closeGame() {
+  socket.emit(CLOSE_GAME);
+}
+
 export {
   connectToServer,
   startGame,
@@ -68,4 +73,5 @@ export {
   enactFascistPower,
   submitVetoRequest,
   respondVetoRequest,
+  closeGame,
 };

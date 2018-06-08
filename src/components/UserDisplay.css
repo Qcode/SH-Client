@@ -8,3 +8,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.user-display-center {
+  margin-bottom: 1rem;
+}

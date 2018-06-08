@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import GameOver from '../components/GameOver';
 import { userPropTypesShape, memoPropTypesShape } from '../objects';
 import { DISMISS_MEMO } from '../reducers/eventTypes';
+import { startGame, closeGame } from '../api';
 
 function GameOverContainer(props) {
   return (
@@ -14,6 +15,8 @@ function GameOverContainer(props) {
       users={props.users}
       reason={props.reason}
       dismissMemo={props.dismissMemo}
+      startGame={startGame}
+      closeGame={closeGame}
     />
   );
 }
