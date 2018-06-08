@@ -1,3 +1,11 @@
 .game-over {
   text-align: center;
 }
+
+.game-over-button-container {
+  min-width: 30px;
+  width: 50%;
+  display: flex;
+  margin: auto;
+  justify-content: space-around;
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './GameOver.css';
+import Button from '@material-ui/core/Button';
 import UserDisplay from './UserDisplay';
 import { userPropTypesShape, memoPropTypesShape } from '../objects';
 import Memo from './Memo';
+import './GameOver.css';
 
 function GameOver(props) {
   const titles = {
@@ -26,6 +27,27 @@ function GameOver(props) {
       <h1 className="title-text">{titles[props.reason]}</h1>
       <p>{explanations[props.reason]}</p>
       <UserDisplay center primaryUser={props.primaryUser} users={props.users} />
+      {props.primaryUser.host && (
+        <div className="game-over-button-container">
+          <Button
+            style={{ 'margin-left': '10px', 'margin-right': '10px' }}
+            variant="outlined"
+            color="primary"
+            onClick={props.startGame}
+          >
+            Restart Game with Same Players
+          </Button>
+          <Button
+            style={{ 'margin-left': '10px', 'margin-right': '10px' }}
+            variant="outlined"
+            color="primary"
+            onClick={props.closeGame}
+          >
+            New Game with Different Players
+          </Button>
+        </div>
+      )}
+
       {props.memos.length > 0 ? (
         <Memo
           users={props.users.concat([props.primaryUser])}
@@ -44,6 +66,8 @@ GameOver.propTypes = {
   users: PropTypes.arrayOf(userPropTypesShape).isRequired,
   dismissMemo: PropTypes.func.isRequired,
   memos: PropTypes.arrayOf(memoPropTypesShape),
+  startGame: PropTypes.func.isRequired,
+  closeGame: PropTypes.func.isRequired,
 };
 
 GameOver.defaultProps = {
