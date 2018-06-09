@@ -26,7 +26,7 @@ function Game(props) {
     voteForChancellor: () => false,
     presidentPolicySelect: primaryUser => !primaryUser.isPresident,
     chancellorPolicySelect: primaryUser => !primaryUser.isChancellor,
-    fascistPolicy: primaryUser => !primaryUser.isPresident,
+    fascistPower: primaryUser => !primaryUser.isPresident,
   };
 
   return (
